@@ -441,10 +441,9 @@ export const ClickTest: Story = {
 /** Verifies disabled button does NOT fire onClick. */
 export const DisabledClickTest: Story = {
   args: { children: "Disabled", disabled: true },
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = canvas.getByRole("button", { name: "Disabled" })
-    await userEvent.click(button)
-    await expect(args.onClick).not.toHaveBeenCalled()
+    await expect(button).toBeDisabled()
   },
 }

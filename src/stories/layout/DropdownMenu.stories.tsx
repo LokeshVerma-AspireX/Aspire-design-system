@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { fn } from "storybook/test"
-import { within, userEvent, expect } from "storybook/test"
+import { within, userEvent, expect, waitFor } from "storybook/test"
 import { useState } from "react"
 import {
   DropdownMenu,
@@ -890,11 +890,13 @@ export const OpenMenuTest: Story = {
     const trigger = canvas.getByTestId("dd-trigger")
     // Click to open
     await userEvent.click(trigger)
-    // Check items appear in the DOM
-    const editItem = await within(document.body).findByText("Edit")
-    await expect(editItem).toBeVisible()
-    const deleteItem = within(document.body).getByText("Delete")
-    await expect(deleteItem).toBeVisible()
+    // Check items appear and are visible (wait for open animation)
+    await waitFor(() => {
+      expect(within(document.body).getByText("Edit")).toBeVisible()
+    }, { timeout: 3000 })
+    await waitFor(() => {
+      expect(within(document.body).getByText("Delete")).toBeVisible()
+    }, { timeout: 3000 })
   },
 }
 
@@ -926,9 +928,10 @@ export const KeyboardNavigationTest: Story = {
     await expect(trigger).toHaveFocus()
     // Press Enter to open
     await userEvent.keyboard("[Enter]")
-    // Menu items should be visible
-    const firstItem = await within(document.body).findByText("First Item")
-    await expect(firstItem).toBeVisible()
+    // Menu items should be visible (wait for open animation)
+    await waitFor(() => {
+      expect(within(document.body).getByText("First Item")).toBeVisible()
+    }, { timeout: 3000 })
   },
 }
 
@@ -955,8 +958,9 @@ export const EscapeCloseTest: Story = {
     const trigger = canvas.getByTestId("dd-esc-trigger")
     // Open the menu
     await userEvent.click(trigger)
-    const optionA = await within(document.body).findByText("Option A")
-    await expect(optionA).toBeVisible()
+    await waitFor(() => {
+      expect(within(document.body).getByText("Option A")).toBeVisible()
+    }, { timeout: 3000 })
     // Press Escape to close
     await userEvent.keyboard("[Escape]")
     // Trigger should still be in the document

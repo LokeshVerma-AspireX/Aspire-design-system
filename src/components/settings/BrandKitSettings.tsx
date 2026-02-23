@@ -67,7 +67,7 @@ const voiceMeta: Record<
 function BrandKitSettings() {
   /* ---- state ---- */
   const [colors, setColors] = React.useState<BrandColor[]>([
-    { label: "Primary", hex: "#e3f1bb" },
+    { label: "Primary", hex: "#16282D" },
     { label: "Secondary", hex: "#1a1a2e" },
     { label: "Accent", hex: "#6366f1" },
   ])

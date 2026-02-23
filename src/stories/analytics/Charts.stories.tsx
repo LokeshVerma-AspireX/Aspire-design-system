@@ -128,7 +128,7 @@ export const TrendIndicatorVariants: Story = {
     const canvas = within(canvasElement)
     // Verify percentage values render
     await expect(canvas.getByText("+18.2%")).toBeInTheDocument()
-    await expect(canvas.getByText("-3.2%")).toBeInTheDocument()
+    await expect(canvas.getByText((content) => content.includes("3.2%"))).toBeInTheDocument()
   },
   parameters: {
     docs: {

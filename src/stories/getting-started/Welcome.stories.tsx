@@ -76,8 +76,28 @@ function WelcomePage() {
         </ul>
       </div>
 
-      <div className="rounded-lg border border-dashed p-5 space-y-2">
+      <div className="space-y-3">
         <h3 className="font-semibold">Quick Navigation</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <a
+            href="/?path=/story/1-getting-started-component-index--gallery"
+            className="block p-5 rounded-xl border border-stone-200 hover:border-[#16282D]
+                       hover:shadow-md transition-all group"
+          >
+            <p className="text-2xl mb-2">{"🧩"}</p>
+            <p className="font-semibold text-stone-900 group-hover:text-[#16282D]">Component Gallery</p>
+            <p className="text-sm text-muted-foreground mt-1">Browse all components with live previews</p>
+          </a>
+          <a
+            href="/?path=/docs/2-foundations-design-tokens--docs"
+            className="block p-5 rounded-xl border border-stone-200 hover:border-[#16282D]
+                       hover:shadow-md transition-all group"
+          >
+            <p className="text-2xl mb-2">{"🎨"}</p>
+            <p className="font-semibold text-stone-900 group-hover:text-[#16282D]">Design Tokens</p>
+            <p className="text-sm text-muted-foreground mt-1">Colors, typography, spacing, and brand assets</p>
+          </a>
+        </div>
         <p className="text-sm text-muted-foreground">
           Use the sidebar to browse components by category. Toggle dark mode
           using the theme switcher in the toolbar above.

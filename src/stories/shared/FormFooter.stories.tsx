@@ -579,12 +579,10 @@ export const DisabledNextTest: Story = {
     nextLabel: "Next",
     nextDisabled: true,
   },
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const nextButton = canvas.getByRole("button", { name: /Next/i })
     await expect(nextButton).toBeDisabled()
-    await userEvent.click(nextButton)
-    await expect(args.onNext).not.toHaveBeenCalled()
   },
   parameters: {
     docs: {

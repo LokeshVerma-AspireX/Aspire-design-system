@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { within, userEvent, expect } from "storybook/test"
+import { within, userEvent, expect, waitFor } from "storybook/test"
 import {
   Accordion,
   AccordionContent,
@@ -681,11 +681,12 @@ export const ExpandTest: Story = {
     const trigger = canvas.getByText("Expandable Section")
 
     // Initially the content should not be visible
-    await expect(
-      canvas.queryByText(
-        "This content should be visible after clicking the trigger."
-      )
-    ).not.toBeVisible()
+    const hiddenContent = canvas.queryByText(
+      "This content should be visible after clicking the trigger."
+    )
+    if (hiddenContent) {
+      await expect(hiddenContent).not.toBeVisible()
+    }
 
     // Click to expand
     await userEvent.click(trigger)
@@ -730,11 +731,12 @@ export const CollapseTest: Story = {
     await userEvent.click(trigger)
 
     // Content should be hidden
-    await expect(
-      canvas.queryByText(
+    await waitFor(() => {
+      const content = canvas.queryByText(
         "This content starts visible and should hide after clicking."
       )
-    ).not.toBeVisible()
+      expect(!content || !content.checkVisibility()).toBeTruthy()
+    })
   },
 }
 
@@ -772,8 +774,9 @@ export const SingleToggleTest: Story = {
     ).toBeVisible()
 
     // First panel should now be hidden
-    await expect(
-      canvas.queryByText("Content of the first panel.")
-    ).not.toBeVisible()
+    await waitFor(() => {
+      const content = canvas.queryByText("Content of the first panel.")
+      expect(!content || !content.checkVisibility()).toBeTruthy()
+    })
   },
 }

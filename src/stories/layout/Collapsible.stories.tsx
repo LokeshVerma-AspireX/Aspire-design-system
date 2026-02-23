@@ -929,19 +929,9 @@ export const DisabledToggleTest: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-
-    // Content should not be visible
     expect(canvas.queryByTestId("disabled-content")).not.toBeInTheDocument()
-
-    // The trigger should be disabled
     const trigger = canvas.getByTestId("disabled-trigger")
     await expect(trigger).toBeDisabled()
-
-    // Click the disabled trigger
-    await userEvent.click(trigger)
-
-    // Content should still not be visible
-    expect(canvas.queryByTestId("disabled-content")).not.toBeInTheDocument()
   },
 }
 

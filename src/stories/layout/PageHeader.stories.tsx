@@ -515,7 +515,8 @@ export const BreadcrumbNavTest: Story = {
     await expect(nav).toBeVisible()
     await expect(canvas.getByText("Home")).toBeVisible()
     await expect(canvas.getByText("Contacts")).toBeVisible()
-    await expect(canvas.getByText("Detail Page")).toBeVisible()
+    // Verify the breadcrumb nav contains "Detail Page" (avoid duplicate with title)
+    await expect(within(nav).getByText("Detail Page")).toBeVisible()
   },
 }
 

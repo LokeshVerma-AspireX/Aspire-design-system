@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { fn } from "storybook/test"
-import { within, userEvent, expect } from "storybook/test"
+import { within, userEvent, expect, waitFor } from "storybook/test"
 import { useState } from "react"
 import {
   AlertDialog,
@@ -610,14 +610,18 @@ export const OpenTest: Story = {
     const trigger = canvas.getByRole("button", { name: "Open Test Dialog" })
     await userEvent.click(trigger)
 
-    // Dialog content should now be visible in the document
+    // Dialog content should now be visible (wait for open animation)
     const body = within(document.body)
-    await expect(body.getByText("Test Dialog Title")).toBeVisible()
-    await expect(
-      body.getByText(
-        "This dialog should be visible after clicking the trigger."
-      )
-    ).toBeVisible()
+    await waitFor(() => {
+      expect(body.getByText("Test Dialog Title")).toBeVisible()
+    }, { timeout: 3000 })
+    await waitFor(() => {
+      expect(
+        body.getByText(
+          "This dialog should be visible after clicking the trigger."
+        )
+      ).toBeVisible()
+    }, { timeout: 3000 })
   },
 }
 
@@ -652,15 +656,19 @@ export const CancelCloseTest: Story = {
     const trigger = canvas.getByRole("button", { name: "Open Cancel Test" })
     await userEvent.click(trigger)
 
-    // Verify dialog is open
+    // Verify dialog is open (wait for animation)
     const body = within(document.body)
-    await expect(body.getByText("Cancel Test")).toBeVisible()
+    await waitFor(() => {
+      expect(body.getByText("Cancel Test")).toBeVisible()
+    }, { timeout: 3000 })
 
     // Click Cancel
     const cancelButton = body.getByRole("button", { name: "Cancel" })
     await userEvent.click(cancelButton)
 
     // Dialog should be closed
-    await expect(body.queryByText("Cancel Test")).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(body.queryByText("Cancel Test")).not.toBeInTheDocument()
+    }, { timeout: 3000 })
   },
 }

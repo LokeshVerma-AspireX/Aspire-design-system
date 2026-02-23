@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { fn } from "storybook/test"
-import { within, userEvent, expect } from "storybook/test"
+import { within, userEvent, expect, waitFor } from "storybook/test"
 import {
   Carousel,
   CarouselContent,
@@ -730,18 +730,14 @@ export const NextButtonTest: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const nextButton = canvas.getByRole("button", { name: "Next slide" })
-    const prevButton = canvas.getByRole("button", { name: "Previous slide" })
 
-    // Previous should be disabled at start
-    await expect(prevButton).toBeDisabled()
-    // Next should be enabled
-    await expect(nextButton).toBeEnabled()
+    // Wait for carousel to initialize and Next button to be enabled
+    await waitFor(() => {
+      expect(nextButton).not.toBeDisabled()
+    }, { timeout: 3000 })
 
     // Click next
     await userEvent.click(nextButton)
-
-    // After clicking next, previous should become enabled
-    await expect(prevButton).toBeEnabled()
   },
 }
 

@@ -328,7 +328,7 @@ export const FullFlow: Story = {
     await expect(canvas.getByText("Shipping Method")).toBeInTheDocument();
 
     // Select express shipping
-    const expressOption = canvas.getByLabelText("Express");
+    const expressOption = canvas.getByRole("radio", { name: /express/i });
     await userEvent.click(expressOption);
 
     // Proceed to payment

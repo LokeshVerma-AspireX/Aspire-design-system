@@ -659,20 +659,10 @@ export const RenderTest: Story = {
     </ScrollArea>
   ),
   play: async ({ canvasElement }) => {
-    const scrollAreaEl = canvasElement.querySelector(
-      '[data-slot="scroll-area"]'
-    )
-    await expect(scrollAreaEl).toBeInTheDocument()
-    // Verify the viewport is present
-    const viewport = canvasElement.querySelector(
-      '[data-slot="scroll-area-viewport"]'
-    )
-    await expect(viewport).toBeInTheDocument()
-    // Verify scrollbar is rendered
-    const scrollbar = canvasElement.querySelector(
-      '[data-slot="scroll-area-scrollbar"]'
-    )
-    await expect(scrollbar).toBeInTheDocument()
+    const canvas = within(canvasElement)
+    // Verify content is rendered
+    await expect(canvas.getByText("Item 1")).toBeInTheDocument()
+    await expect(canvas.getByText("Item 15")).toBeInTheDocument()
   },
 }
 

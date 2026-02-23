@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { within, userEvent, expect } from "storybook/test"
+import { within, userEvent, expect, waitFor } from "storybook/test"
 import {
   Tooltip,
   TooltipContent,
@@ -616,27 +616,25 @@ export const HoverToShowTest: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="outline" data-testid="tooltip-trigger">
-          Hover to reveal
-        </Button>
+        <Button variant="outline">Hover to reveal</Button>
       </TooltipTrigger>
-      <TooltipContent>
-        <p data-testid="tooltip-content">Tooltip is visible</p>
-      </TooltipContent>
+      <TooltipContent>Tooltip is visible</TooltipContent>
     </Tooltip>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const trigger = canvas.getByTestId("tooltip-trigger")
+    const trigger = canvas.getByRole("button", { name: "Hover to reveal" })
 
     // Hover over the trigger
     await userEvent.hover(trigger)
 
-    // The tooltip content should appear (it renders in a portal, so query the whole document)
-    const body = within(document.body)
-    const content = await body.findByTestId("tooltip-content", {}, { timeout: 3000 })
-    await expect(content).toBeVisible()
-    await expect(content).toHaveTextContent("Tooltip is visible")
+    // The visual tooltip renders in a portal with data-slot="tooltip-content"
+    // (role="tooltip" is a hidden accessibility span in Radix, not the visual element)
+    await waitFor(() => {
+      const el = document.querySelector('[data-slot="tooltip-content"]')
+      expect(el).toBeTruthy()
+      expect(el!.textContent).toContain("Tooltip is visible")
+    }, { timeout: 3000 })
 
     // Unhover to dismiss
     await userEvent.unhover(trigger)
@@ -651,16 +649,12 @@ export const FocusToShowTest: Story = {
   name: "Test: Focus Shows Tooltip",
   render: () => (
     <div>
-      <button data-testid="pre-focus">Pre-focus target</button>
+      <button>Pre-focus target</button>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="outline" data-testid="tooltip-focus-trigger">
-            Focus me
-          </Button>
+          <Button variant="outline">Focus me</Button>
         </TooltipTrigger>
-        <TooltipContent>
-          <p data-testid="tooltip-focus-content">Tooltip via focus</p>
-        </TooltipContent>
+        <TooltipContent>Tooltip via focus</TooltipContent>
       </Tooltip>
     </div>
   ),
@@ -668,19 +662,20 @@ export const FocusToShowTest: Story = {
     const canvas = within(canvasElement)
 
     // Tab to the pre-focus target first, then tab to the tooltip trigger
-    const preFocus = canvas.getByTestId("pre-focus")
+    const preFocus = canvas.getByRole("button", { name: "Pre-focus target" })
     preFocus.focus()
     await userEvent.tab()
 
     // The tooltip trigger should now be focused
-    const trigger = canvas.getByTestId("tooltip-focus-trigger")
+    const trigger = canvas.getByRole("button", { name: "Focus me" })
     await expect(trigger).toHaveFocus()
 
-    // The tooltip content should appear
-    const body = within(document.body)
-    const content = await body.findByTestId("tooltip-focus-content", {}, { timeout: 3000 })
-    await expect(content).toBeVisible()
-    await expect(content).toHaveTextContent("Tooltip via focus")
+    // The visual tooltip renders in a portal with data-slot="tooltip-content"
+    await waitFor(() => {
+      const el = document.querySelector('[data-slot="tooltip-content"]')
+      expect(el).toBeTruthy()
+      expect(el!.textContent).toContain("Tooltip via focus")
+    }, { timeout: 3000 })
   },
 }
 
@@ -694,11 +689,11 @@ export const IconTooltipTest: Story = {
     <div className="flex items-center gap-1">
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon" aria-label="Copy to clipboard">
+          <Button variant="ghost" size="icon" aria-label="Copy item">
             <Copy />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Copy to clipboard</TooltipContent>
+        <TooltipContent>Copy item</TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
@@ -712,22 +707,34 @@ export const IconTooltipTest: Story = {
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
-    const body = within(document.body)
 
     // Hover over the Copy button
-    const copyButton = canvas.getByRole("button", { name: "Copy to clipboard" })
+    const copyButton = canvas.getByRole("button", { name: "Copy item" })
     await userEvent.hover(copyButton)
 
-    const copyTooltip = await body.findByText("Copy to clipboard", {}, { timeout: 3000 })
-    await expect(copyTooltip).toBeVisible()
+    // Visual tooltip appears in portal with data-slot="tooltip-content"
+    await waitFor(() => {
+      const el = document.querySelector('[data-slot="tooltip-content"]')
+      expect(el).toBeTruthy()
+      expect(el!.textContent).toContain("Copy item")
+    }, { timeout: 3000 })
 
-    // Unhover, then hover the Download button
+    // Unhover and wait for the old tooltip to fully close (exit animation)
     await userEvent.unhover(copyButton)
+    await waitFor(() => {
+      expect(document.querySelector('[data-slot="tooltip-content"]')).toBeNull()
+    }, { timeout: 3000 })
+
+    // Now hover the Download button
     const downloadButton = canvas.getByRole("button", { name: "Download file" })
     await userEvent.hover(downloadButton)
 
-    const downloadTooltip = await body.findByText("Download file", {}, { timeout: 3000 })
-    await expect(downloadTooltip).toBeVisible()
+    // Wait for the new tooltip to appear with correct content
+    await waitFor(() => {
+      const el = document.querySelector('[data-slot="tooltip-content"]')
+      expect(el).toBeTruthy()
+      expect(el!.textContent).toContain("Download file")
+    }, { timeout: 3000 })
 
     await userEvent.unhover(downloadButton)
   },

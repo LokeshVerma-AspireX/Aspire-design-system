@@ -9,7 +9,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Core design tokens for the Aspire Design System. All tokens are CSS custom properties (HSL) mapped into Tailwind v4 via `@theme inline` in `globals.css`. The lime-green primary (`#e3f1bb`) and warm stone neutrals are the brand palette anchors. Toggle the **Theme** toolbar above to preview dark-mode variants.",
+          "Core design tokens for the Aspire Design System. All tokens are CSS custom properties (HSL) mapped into Tailwind v4 via `@theme inline` in `globals.css`. The deep teal primary (`#16282D`) and lime-green accent (`#E3F1BB`) are the brand palette anchors. Toggle the **Theme** toolbar above to preview dark-mode variants.",
       },
     },
   },
@@ -82,13 +82,13 @@ export const Colors: Story = {
   render: () => (
     <div className="max-w-3xl space-y-10">
       <Section
-        title="Brand — Aspire Lime-Green"
-        description="Primary lime-green drives CTAs, focus rings, active nav states, and highlights."
+        title="Brand — Aspire Deep Teal + Lime Accent"
+        description="Deep teal primary (#16282D) drives buttons, headings, and active states. Lime-green accent (#E3F1BB) for highlights, tags, and focus rings."
       >
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <Swatch label="Primary"            sub="--primary · hsl(78 68% 85%)"    className="bg-primary" />
+          <Swatch label="Primary"            sub="--primary · hsl(194 37% 13%)"   className="bg-primary" />
           <Swatch label="Primary Foreground" sub="--primary-foreground"            className="bg-primary-foreground border border-border" />
-          <Swatch label="Accent"             sub="--accent · tint of primary"      className="bg-accent" />
+          <Swatch label="Accent"             sub="--accent · hsl(78 68% 84%)"     className="bg-accent" />
           <Swatch label="Accent Foreground"  sub="--accent-foreground"             className="bg-accent-foreground" />
         </div>
       </Section>
@@ -203,7 +203,7 @@ export const Typography: Story = {
         <div className="space-y-2 rounded-xl border bg-card px-5 py-4">
           {[
             "const engagement = (likes + comments) / reach * 100",
-            "--primary: hsl(78 68.2% 84.7%);  /* #e3f1bb lime-green */",
+            "--primary: hsl(194 37% 13%);     /* #16282D deep teal */",
             "23.4M impressions · $481K TMV · 6.8% eng. rate",
           ].map((line) => (
             <p key={line} className="font-mono text-sm text-foreground/80">
@@ -360,8 +360,8 @@ export const TokenReference: Story = {
   --radius: 0.5rem;
 
   /* ── Brand ─────────────────────────────── */
-  --primary:            78 68.2% 84.7%;  /* #e3f1bb */
-  --primary-foreground: 20 14.3%  9.8%;
+  --primary:            194 37%  13%;   /* #16282D deep teal */
+  --primary-foreground:   0  0%  100%;  /* #ffffff */
 
   /* ── Surfaces (Warm Stone) ──────────────── */
   --background:          0  0%   100%;
@@ -373,9 +373,9 @@ export const TokenReference: Story = {
   --input:              20  5.9% 90%;
 
   /* ── Interactive ────────────────────────── */
-  --accent:             78 60%   91%;
-  --accent-foreground:  24  9.8% 10%;
-  --ring:               78 68.2% 75%;
+  --accent:             78 68%   84%;   /* #E3F1BB lime-green */
+  --accent-foreground: 194 37%   13%;   /* #16282D */
+  --ring:              194 37%   13%;
 
   /* ── Status ─────────────────────────────── */
   --destructive:         0 72.2% 50.6%;
@@ -389,6 +389,8 @@ export const TokenReference: Story = {
         </div>
         <pre className="overflow-x-auto p-4 font-mono text-xs leading-relaxed text-muted-foreground">
 {`.dark {
+  --primary:     194 30%   22%;   /* lighter teal for dark bg */
+  --primary-foreground: 0 0% 100%;
   --background:   20 14.3%  4.1%;  /* stone-950 */
   --foreground:   60  9.1% 97.8%;  /* stone-50  */
   --card:         20 14.3%  7%;
@@ -396,8 +398,9 @@ export const TokenReference: Story = {
   --muted-foreground: 24 5.4% 63.9%;
   --border:       12  6.5% 15.1%;
   --input:        12  6.5% 15.1%;
-  --accent:       78 30%   22%;
-  --ring:         78 68.2% 84.7%;
+  --accent:       78 68%   84%;   /* #E3F1BB */
+  --accent-foreground: 194 37% 13%;
+  --ring:        194 30%   22%;
   --destructive:   0 62.8% 40%;
 }`}
         </pre>

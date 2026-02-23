@@ -636,7 +636,7 @@ export const TriggerRenderTest: Story = {
     const canvas = within(canvasElement)
 
     // The trigger should be rendered as a button
-    const trigger = canvas.getByRole("link", { name: "@testuser" })
+    const trigger = canvas.getByRole("button", { name: "@testuser" })
     await expect(trigger).toBeInTheDocument()
   },
 }

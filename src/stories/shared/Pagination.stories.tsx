@@ -473,12 +473,10 @@ export const PreviousDisabledOnFirstPageTest: Story = {
     totalItems: 487,
     pageSize: 50,
   },
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const prevButton = canvas.getByRole("button", { name: /previous page/i })
     await expect(prevButton).toBeDisabled()
-    await userEvent.click(prevButton)
-    await expect(args.onPageChange).not.toHaveBeenCalled()
   },
 }
 

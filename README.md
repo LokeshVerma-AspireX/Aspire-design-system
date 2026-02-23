@@ -1,7 +1,7 @@
 # Aspire Design Story
 
 <div align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-e3f1bb?style=for-the-badge&labelColor=1c1917" alt="version" />
+  <img src="https://img.shields.io/badge/version-1.0.0-E3F1BB?style=for-the-badge&labelColor=16282D" alt="version" />
   <img src="https://img.shields.io/badge/storybook-10.2.9-FF4785?style=for-the-badge&logo=storybook&logoColor=white" alt="storybook" />
   <img src="https://img.shields.io/badge/react-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="react" />
   <img src="https://img.shields.io/badge/typescript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="typescript" />
@@ -305,8 +305,10 @@ All tokens are in `src/app/globals.css` as HSL CSS custom properties.
 
 --background          /* Page background: white / dark: near-black     */
 --foreground          /* Primary text: warm stone dark                  */
---primary             /* Lime green #e3f1bb — CTA, active states        */
---primary-foreground  /* Text on primary bg                             */
+--primary             /* Deep dark teal #16282D — buttons, active states */
+--primary-foreground  /* White #ffffff — text on primary bg              */
+--accent              /* Lime green #E3F1BB — highlights, tags, active nav */
+--accent-foreground   /* Deep dark teal #16282D — text on accent bg      */
 --secondary           /* Subtle backgrounds                             */
 --muted               /* Muted text, disabled states                    */
 --border              /* Card borders, dividers: light gray             */

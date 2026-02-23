@@ -397,8 +397,8 @@ export const CopyButtonClickTest: Story = {
     await expect(button).toBeInTheDocument()
     // Click the button
     await userEvent.click(button)
-    // After click: aria-label should change to copiedLabel
-    const copiedButton = canvas.getByRole("button", { name: "Copied!" })
+    // After click: aria-label changes asynchronously (clipboard API is async)
+    const copiedButton = await canvas.findByRole("button", { name: "Copied!" }, { timeout: 3000 })
     await expect(copiedButton).toBeInTheDocument()
   },
 }
@@ -418,8 +418,8 @@ export const CustomCopiedLabelTest: Story = {
     const button = canvas.getByRole("button", { name: "Copy to clipboard" })
     await expect(button).toBeInTheDocument()
     await userEvent.click(button)
-    // Custom copiedLabel should now be the aria-label
-    const copiedButton = canvas.getByRole("button", { name: "Code copied!" })
+    // Custom copiedLabel should now be the aria-label (async clipboard API)
+    const copiedButton = await canvas.findByRole("button", { name: "Code copied!" }, { timeout: 3000 })
     await expect(copiedButton).toBeInTheDocument()
   },
 }
@@ -441,8 +441,8 @@ export const KeyboardAccessibilityTest: Story = {
     await expect(button).toHaveFocus()
     // Activate via Enter key
     await userEvent.keyboard("{Enter}")
-    // After activation, aria-label should reflect copied state
-    const copiedButton = canvas.getByRole("button", { name: "Copied!" })
+    // After activation, aria-label changes asynchronously (clipboard API is async)
+    const copiedButton = await canvas.findByRole("button", { name: "Copied!" }, { timeout: 3000 })
     await expect(copiedButton).toBeInTheDocument()
   },
 }
