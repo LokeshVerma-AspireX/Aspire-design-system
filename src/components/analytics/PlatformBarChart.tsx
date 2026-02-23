@@ -12,18 +12,13 @@ import {
   ResponsiveContainer,
 } from "recharts"
 import { cn } from "@/lib/utils"
+import { formatK } from "@/lib/formatters"
 
 export interface PlatformData {
   platform: string
   impressions: number
   reach: number
   engagement: number
-}
-
-function formatK(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`
-  return String(n)
 }
 
 const BARS: { key: keyof Omit<PlatformData, "platform">; label: string; color: string }[] = [

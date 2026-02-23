@@ -120,17 +120,43 @@ function SignInForm({
 
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
+/**
+ * # AuthPages
+ *
+ * Full-page auth flows combining form components into sign-in and sign-up experiences
+ * with validation, loading states, and social login options.
+ *
+ * ## Components Used
+ * - `Input` — email, password, and name fields
+ * - `Label` — form field labels
+ * - `Button` — submit actions and social login
+ * - `Checkbox` — "remember me" and "terms of service" toggles
+ * - `Alert`, `AlertDescription` — validation error banners
+ * - `Separator` — divider between form and social login
+ * - Lucide icons: `AlertCircle`, `Eye`, `EyeOff`, `Github`, `Loader2`
+ *
+ * ## Data Requirements
+ * - `onSubmit` (optional) — `(email: string, password: string) => void` callback
+ * - `error` (optional) — error message string to display in alert
+ * - `loading` (optional) — boolean to show loading spinner on submit button
+ *
+ * ## Customization
+ * - Swap `Github` icon/button for other OAuth providers (Google, Apple, etc.)
+ * - Password strength meter in Sign Up can be customized with different color schemes
+ * - Error messages are fully customizable via the `error` prop
+ * - Form width is set to `w-80` but can be adjusted via wrapper
+ * - "Forgot password?" link can trigger a modal or route change
+ *
+ * ```tsx
+ * // This is an inline composition — not a standalone importable component.
+ * // See source for the SignInForm implementation pattern.
+ * ```
+ */
 const meta = {
-  title: "Compositions/Auth Pages",
+  title: "7. Patterns/AuthPages",
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "Full-page auth flows combining multiple components: Input, Button, Label, Checkbox, Alert, Separator. Includes form validation and loading states.",
-      },
-    },
   },
 } satisfies Meta;
 
@@ -139,11 +165,13 @@ type Story = StoryObj<typeof meta>;
 
 // ─── Stories ──────────────────────────────────────────────────────────────────
 
+/** Default sign-in form with empty fields. */
 export const SignIn: Story = {
   name: "Sign In — Default",
   render: () => <SignInForm />,
 };
 
+/** Sign-in form displaying a validation error banner. */
 export const SignInWithError: Story = {
   name: "Sign In — Validation Error",
   render: () => (
@@ -151,11 +179,13 @@ export const SignInWithError: Story = {
   ),
 };
 
+/** Sign-in form in loading state with disabled submit button and spinner. */
 export const SignInLoading: Story = {
   name: "Sign In — Loading State",
   render: () => <SignInForm loading />,
 };
 
+/** Interactive sign-in with play function that fills fields, triggers validation error, then corrects. */
 export const SignInInteractive: Story = {
   name: "Sign In — Interactive (Play)",
   render: () => {
@@ -203,6 +233,7 @@ export const SignInInteractive: Story = {
   },
 };
 
+/** Registration form with name fields, password strength meter, and terms checkbox. */
 export const SignUp: Story = {
   name: "Sign Up — Registration Form",
   render: () => (

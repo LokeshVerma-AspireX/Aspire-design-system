@@ -2,24 +2,9 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { formatRelativeTime } from "@/lib/formatters"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import type { Thread } from "./types"
-
-export function formatRelativeTime(iso: string): string {
-  const now = new Date()
-  const date = new Date(iso)
-  const diffMs = now.getTime() - date.getTime()
-  const diffMin = Math.floor(diffMs / 60_000)
-  const diffHour = Math.floor(diffMin / 60)
-  const diffDay = Math.floor(diffHour / 24)
-
-  if (diffMin < 2) return "just now"
-  if (diffMin < 60) return `${diffMin} min ago`
-  if (diffHour < 24) return `${diffHour}h ago`
-  if (diffDay === 1) return "yesterday"
-  if (diffDay < 7) return `${diffDay} days ago`
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
-}
 
 interface ThreadItemProps {
   thread: Thread
@@ -67,7 +52,7 @@ function ThreadItem({ thread, selected = false, onClick, className }: ThreadItem
             {thread.senderName}
           </span>
           <span className="text-[11px] text-muted-foreground whitespace-nowrap shrink-0 leading-tight mt-0.5">
-            {formatRelativeTime(thread.lastMessageAt)}
+            {formatRelativeTime(new Date(thread.lastMessageAt))}
           </span>
         </div>
         <p

@@ -184,7 +184,7 @@ function OffersPage({
       {/* ── Page Header ────────────────────────────────────────────────── */}
       <PageHeader title="Offers" showAstra />
 
-      {/* ── Tabs + "Send Payment" ──────────────────────────────────────── */}
+      {/* ── Tabs ──────────────────────────────────────── */}
       <div className="flex items-center justify-between px-6 py-4">
         <Tabs value={activeTab} onValueChange={onTabChange}>
           <TabsList>
@@ -194,9 +194,7 @@ function OffersPage({
           </TabsList>
         </Tabs>
 
-        <Button variant="outline" size="sm" onClick={onSendPayment}>
-          Send Payment
-        </Button>
+       
       </div>
 
       {/* ── Filter Bar ─────────────────────────────────────────────────── */}

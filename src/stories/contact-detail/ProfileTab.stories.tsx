@@ -1,17 +1,92 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import { ProfileTab } from "@/components/contact-detail/ProfileTab"
 
+/**
+ * # ProfileTab
+ *
+ * Two-column creator profile layout displaying content highlights, tag pills, bio, rates,
+ * brand collaborations, social stats, engagement metrics, and audience demographics.
+ *
+ * ## Components Used
+ * - `ContentHighlights` -- grid of recent posts / branded content / portfolio thumbnails
+ * - `TagPillGroup` -- coloured pill groups for brand partnerships, opportunities, interests
+ * - `ContentRatesTable` -- platform + content type rate table
+ * - `BrandCollaborationCard` -- card showing brand name, metric, and date
+ * - `SocialStatsCards` -- stat cards with trend indicators
+ * - `AudienceDemographicsChart` -- age group bar chart and geo data rows
+ *
+ * ## Data Requirements
+ * - `bio` (string) -- creator bio text
+ * - `socialStats` (StatCard[]) -- label, value, trend direction, optional trend label
+ * - `contentRates` (RateRow[]) -- platform, content type, rate range strings
+ * - `ageGroups` (AgeGroup[]) -- label + percentage for audience age distribution
+ * - `geoData` (GeoRow[]) -- name, percentage, type (city/country) for audience location
+ * - `brandPartnerships`, `campaignOpportunities`, `interestsCategories` (Pill[]) -- tag arrays
+ * - `brandCollaborations` (BrandCollaborationCardProps[]) -- brand name, metric, label, date
+ * - `recentPosts` (ContentPost[]) -- array of post objects for the content grid
+ *
+ * ## Customization
+ * - All pill groups are optional and independently configurable
+ * - Social stats and reels stats can show any number of cards
+ * - Age groups and geo data drive the demographics section dynamically
+ * - Content rates table rows are fully configurable per platform
+ * - Brand collaborations list can be any length
+ *
+ * ```tsx
+ * import { ProfileTab } from "@/components/contact-detail/ProfileTab"
+ * ```
+ */
 const meta = {
-  title: "Contact Detail/ProfileTab",
+  title: "6. Pages/Contacts/ProfileTab",
   component: ProfileTab,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        component:
-          "Two-column creator profile: left has content highlights, pills, bio, rates, and brand collaborations; right has social stats, engagement sparkline, reels stats, and audience demographics.",
-      },
+  },
+  argTypes: {
+    bio: {
+      control: "text",
+      description: "Creator bio text displayed in the about section.",
+    },
+    location: {
+      control: "text",
+      description: "Creator location string (e.g. 'Los Angeles, CA').",
+    },
+    primaryGender: {
+      control: "text",
+      description: "Primary audience gender breakdown string.",
+    },
+    primaryEthnicity: {
+      control: "text",
+      description: "Primary audience ethnicity label.",
+    },
+    brandPartnerships: {
+      control: "object",
+      description: "Array of Pill objects for brand partnership tags.",
+    },
+    campaignOpportunities: {
+      control: "object",
+      description: "Array of Pill objects for campaign opportunity tags.",
+    },
+    interestsCategories: {
+      control: "object",
+      description: "Array of Pill objects for interest/category tags.",
+    },
+    socialStats: {
+      control: "object",
+      description: "Array of stat cards with label, value, trend, and optional trendLabel.",
+    },
+    contentRates: {
+      control: "object",
+      description: "Array of rate rows with platform, contentType, and rateRange.",
+    },
+    ageGroups: {
+      control: "object",
+      description: "Array of age groups with label and percentage for demographics chart.",
+    },
+    geoData: {
+      control: "object",
+      description: "Array of geo rows with name, percentage, and type (city/country).",
     },
   },
   args: {

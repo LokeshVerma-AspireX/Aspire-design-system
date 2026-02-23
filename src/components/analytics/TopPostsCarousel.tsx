@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { formatK } from "@/lib/formatters"
 import { PlatformIcon, PLATFORM_COLOR, type Platform } from "./PlatformIcon"
 
 export interface TopPost {
@@ -12,12 +13,6 @@ export interface TopPost {
   engagementRate: number
   creatorName: string
   creatorInitials?: string
-}
-
-function formatK(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`
-  return String(n)
 }
 
 function TopPostCard({ post }: { post: TopPost }) {

@@ -12,18 +12,13 @@ import {
   ResponsiveContainer,
 } from "recharts"
 import { cn } from "@/lib/utils"
+import { formatK } from "@/lib/formatters"
 
 export interface CreatorDataPoint {
   name: string
   reach: number
   engagementRate: number
   revenue: number
-}
-
-function formatK(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`
-  return String(n)
 }
 
 interface TooltipPayload {

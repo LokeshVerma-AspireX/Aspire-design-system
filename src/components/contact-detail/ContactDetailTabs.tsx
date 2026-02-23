@@ -37,14 +37,10 @@ function ContactDetailTabs({
       onValueChange={(v) => onTabChange?.(v as DetailTab)}
       className={cn("flex flex-1 flex-col overflow-hidden", className)}
     >
-      <div className="border-b border-border px-6">
-        <TabsList variant="line" className="h-10 gap-0 rounded-none bg-transparent p-0">
+      <div className="px-6 pt-4">
+        <TabsList>
           {TAB_DEFS.map(({ value, label }) => (
-            <TabsTrigger
-              key={value}
-              value={value}
-              className="h-10 rounded-none px-4 text-sm font-medium"
-            >
+            <TabsTrigger key={value} value={value}>
               {label}
             </TabsTrigger>
           ))}

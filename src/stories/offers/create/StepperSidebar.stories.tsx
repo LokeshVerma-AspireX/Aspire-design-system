@@ -10,7 +10,7 @@ const OFFER_STEPS = [
 ]
 
 const meta = {
-  title: "Offers/Create/StepperSidebar",
+  title: "6. Pages/Offers/CreateOffer/StepperSidebar",
   component: StepperSidebar,
   tags: ["autodocs"],
   parameters: {

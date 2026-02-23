@@ -3,6 +3,42 @@ import * as React from "react"
 import { ActivityFeed } from "@/components/contact-detail/ActivityFeed"
 import type { ActivityItemData } from "@/components/contact-detail/ActivityFeed"
 
+/**
+ * # ActivityFeed
+ *
+ * Dot-timeline of creator activity events. Supports content submission thumbnails,
+ * quoted comments, action links, and filter dropdowns for campaign and activity type.
+ *
+ * ## Components Used
+ * - `ActivityItem` -- individual timeline row with dot indicator, title, description, optional thumbnails/comment
+ * - `Button` -- "New Activity" CTA
+ * - `Select` -- campaign filter and activity type filter dropdowns
+ * - `DropdownMenu` -- additional actions menu
+ *
+ * ## Data Requirements
+ * - `activities` (ActivityItemData[]) -- array of activity events, each with:
+ *   - `type` -- one of "content_submitted", "brief_signed", "comment_added",
+ *     "brief_edit_requested", "new_applicant", "payment_sent"
+ *   - `title` (string) -- primary display text
+ *   - `description` (string, optional) -- secondary text
+ *   - `comment` (string, optional) -- quoted comment body for comment_added type
+ *   - `thumbnails` (string[], optional) -- thumbnail URLs for content_submitted type
+ *   - `timestamp` (string) -- relative time string
+ *   - `actionLabel` / `onAction` (optional) -- link label and callback
+ * - `campaignOptions` (Array<{label, value}>) -- options for campaign filter dropdown
+ * - `activityTypeOptions` (Array<{label, value}>) -- options for activity type filter dropdown
+ *
+ * ## Customization
+ * - Activity types are extensible; each type renders a different dot colour and layout
+ * - Campaign and activity type filters are optional
+ * - "New Activity" button is shown when `onNewActivity` callback is provided
+ * - Individual activity items can have action links or not
+ *
+ * ```tsx
+ * import { ActivityFeed } from "@/components/contact-detail/ActivityFeed"
+ * ```
+ */
+
 const CAMPAIGN_OPTIONS = [
   { label: "Petfluencer Perks",    value: "petfluencer" },
   { label: "Coffee Campaign Brief", value: "coffee" },
@@ -64,16 +100,36 @@ const ALL_ACTIVITIES: ActivityItemData[] = [
 ]
 
 const meta = {
-  title: "Contact Detail/ActivityFeed",
+  title: "6. Pages/Contacts/ActivityFeed",
   component: ActivityFeed,
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
-    docs: {
-      description: {
-        component:
-          "Dot-timeline of creator activity. Supports content submission thumbnails, quoted comments, action links, and filter dropdowns.",
-      },
+  },
+  argTypes: {
+    activities: {
+      control: "object",
+      description: "Array of activity event objects rendered in the timeline.",
+    },
+    campaignOptions: {
+      control: "object",
+      description: "Options for the campaign filter dropdown.",
+    },
+    activityTypeOptions: {
+      control: "object",
+      description: "Options for the activity type filter dropdown.",
+    },
+    campaignFilter: {
+      control: "text",
+      description: "Currently selected campaign filter value.",
+    },
+    activityTypeFilter: {
+      control: "text",
+      description: "Currently selected activity type filter value.",
+    },
+    onNewActivity: {
+      action: "onNewActivity",
+      description: "Callback fired when the 'New Activity' button is clicked.",
     },
   },
   args: {

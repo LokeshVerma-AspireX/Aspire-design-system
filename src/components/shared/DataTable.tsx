@@ -215,22 +215,30 @@ function DataTable<TData extends { id: string }>({
   const allSelected = data.length > 0 && data.every((r) => selectedIds?.has(r.id))
   const someSelected = !allSelected && data.some((r) => selectedIds?.has(r.id))
 
-  function handleSort(key: string) {
+  const handleSort = React.useCallback((key: string) => {
     if (!onSort) return
     onSort(key, sortKey === key && sortDirection === "asc" ? "desc" : "asc")
-  }
+  }, [onSort, sortKey, sortDirection])
 
-  const { row1, row2 } = buildHeaderRows(
-    columns,
-    hasGroupHeaders ? columnGroups : undefined,
-    hasSelection,
-    hasActions,
-    sortKey,
-    sortDirection,
-    allSelected,
-    someSelected,
-    onSelectAll,
-    handleSort
+  const { row1, row2 } = React.useMemo(
+    () => buildHeaderRows(
+      columns,
+      hasGroupHeaders ? columnGroups : undefined,
+      hasSelection,
+      hasActions,
+      sortKey,
+      sortDirection,
+      allSelected,
+      someSelected,
+      onSelectAll,
+      handleSort
+    ),
+    [columns, columnGroups, hasGroupHeaders, hasSelection, hasActions, sortKey, sortDirection, allSelected, someSelected, onSelectAll, handleSort]
+  )
+
+  const renderedColumns = React.useMemo(
+    () => columns.map((col) => ({ id: col.id, className: col.className, cell: col.cell })),
+    [columns]
   )
 
   const tdBase = "px-3 py-3 text-sm text-foreground"
@@ -283,7 +291,7 @@ function DataTable<TData extends { id: string }>({
                   )}
 
                   {/* Data cells */}
-                  {columns.map((col) => (
+                  {renderedColumns.map((col) => (
                     <td key={col.id} className={cn(tdBase, col.className)}>
                       {col.cell(row, rowIndex)}
                     </td>

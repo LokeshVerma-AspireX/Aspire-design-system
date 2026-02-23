@@ -3,6 +3,7 @@
 import * as React from "react"
 import { ArrowUpDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { formatK } from "@/lib/formatters"
 import { PlatformIcon, PLATFORM_TEXT_COLOR, type Platform } from "./PlatformIcon"
 
 export interface PostTableRow {
@@ -18,12 +19,6 @@ export interface PostTableRow {
 }
 
 type SortKey = "impressions" | "engagement" | "reach" | "date"
-
-function formatK(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`
-  return String(n)
-}
 
 interface PostsTableProps {
   posts: PostTableRow[]
@@ -72,11 +67,14 @@ function PostsTable({ posts, className }: PostsTableProps) {
     }
   }
 
-  const sorted = [...posts].sort((a, b) => {
-    const av = sortKey === "date" ? new Date(a.date).getTime() : (a[sortKey] as number)
-    const bv = sortKey === "date" ? new Date(b.date).getTime() : (b[sortKey] as number)
-    return sortDir === "asc" ? (av < bv ? -1 : 1) : av > bv ? -1 : 1
-  })
+  const sorted = React.useMemo(
+    () => [...posts].sort((a, b) => {
+      const av = sortKey === "date" ? new Date(a.date).getTime() : (a[sortKey] as number)
+      const bv = sortKey === "date" ? new Date(b.date).getTime() : (b[sortKey] as number)
+      return sortDir === "asc" ? (av < bv ? -1 : 1) : av > bv ? -1 : 1
+    }),
+    [posts, sortKey, sortDir]
+  )
 
   const sharedSortProps = { activeSortKey: sortKey, dir: sortDir, onSort: handleSort }
 

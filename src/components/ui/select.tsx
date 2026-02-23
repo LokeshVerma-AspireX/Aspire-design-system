@@ -30,7 +30,7 @@ function SelectTrigger({
   children,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: "default" | "sm"
+  size?: "sm" | "default"
 }) {
   return (
     <SelectPrimitive.Trigger
@@ -56,10 +56,7 @@ function SelectContent({
   position = "item-aligned",
   align = "center",
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content> & {
-  position?: "item-aligned" | "popper"
-  align?: "center" | "start" | "end"
-}) {
+}: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
@@ -150,7 +147,10 @@ function SelectScrollUpButton({
   return (
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
-      className={cn("flex cursor-default items-center justify-center py-1", className)}
+      className={cn(
+        "flex cursor-default items-center justify-center py-1",
+        className
+      )}
       {...props}
     >
       <ChevronUpIcon className="size-4" />
@@ -165,7 +165,10 @@ function SelectScrollDownButton({
   return (
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"
-      className={cn("flex cursor-default items-center justify-center py-1", className)}
+      className={cn(
+        "flex cursor-default items-center justify-center py-1",
+        className
+      )}
       {...props}
     >
       <ChevronDownIcon className="size-4" />

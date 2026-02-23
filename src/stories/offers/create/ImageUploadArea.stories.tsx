@@ -3,7 +3,7 @@ import * as React from "react"
 import { ImageUploadArea } from "@/components/shared/ImageUploadArea"
 
 const meta = {
-  title: "Offers/Create/ImageUploadArea",
+  title: "6. Pages/Offers/CreateOffer/ImageUploadArea",
   component: ImageUploadArea,
   tags: ["autodocs"],
   parameters: {

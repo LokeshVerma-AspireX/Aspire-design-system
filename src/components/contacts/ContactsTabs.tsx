@@ -41,16 +41,12 @@ function ContactsTabs({
       onValueChange={(v) => onTabChange?.(v as ContactTab)}
       className={cn("w-full", className)}
     >
-      <div className="border-b border-border px-6">
-        <TabsList variant="line" className="h-10 gap-0 rounded-none bg-transparent p-0">
+      <div className="px-6 pt-4">
+        <TabsList>
           {TAB_DEFS.map(({ value, label }) => {
             const count = counts?.[value]
             return (
-              <TabsTrigger
-                key={value}
-                value={value}
-                className="h-10 rounded-none px-4 text-sm font-medium data-[state=active]:text-foreground"
-              >
+              <TabsTrigger key={value} value={value}>
                 {label}
                 {count != null && (
                   <span className="ml-1.5 text-xs text-muted-foreground tabular-nums">

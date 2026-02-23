@@ -71,10 +71,10 @@ function ContentHighlights({
         value={activeTab}
         onValueChange={(v) => onTabChange?.(v as HighlightTab)}
       >
-        <TabsList variant="line" className="h-8 gap-0 rounded-none bg-transparent p-0 border-b w-full justify-start">
-          <TabsTrigger value="recent"   className="h-8 rounded-none px-3 text-xs">Recent Posts</TabsTrigger>
-          <TabsTrigger value="branded"  className="h-8 rounded-none px-3 text-xs">Branded Content</TabsTrigger>
-          <TabsTrigger value="portfolio" className="h-8 rounded-none px-3 text-xs">Portfolio</TabsTrigger>
+        <TabsList>
+          <TabsTrigger value="recent">Recent Posts</TabsTrigger>
+          <TabsTrigger value="branded">Branded Content</TabsTrigger>
+          <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
         </TabsList>
 
         <TabsContent value="recent"    className="mt-3"><PostGrid posts={recentPosts} /></TabsContent>

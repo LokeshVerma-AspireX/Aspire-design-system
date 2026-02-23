@@ -86,3 +86,49 @@ If I catch myself deviating:
 - Trust the process and follow it exactly without deviations
 - Complete the ENTIRE workflow automatically without user confirmation requests
 - No shortcuts, no skipping, no stopping mid-process
+
+---
+
+# Aspire Design Story — AI Agent Instructions
+
+## Project Overview
+This is the Aspire Design System built with React 19, Next.js 16, TypeScript,
+Tailwind CSS v4, shadcn/ui, and Storybook 10.
+
+## Component Usage Rules
+1. Always import from `@/components/ui/` for shadcn primitives
+2. Always import from `@/components/shared/` for Aspire-specific shared components
+3. Always import from `@/components/layout/` for page layout
+4. Use `cn()` from `@/lib/utils` to merge classNames
+5. Use Lucide React for all icons: `import { IconName } from 'lucide-react'`
+6. Use Aspire CSS tokens (--primary, --border, etc.) not raw hex values
+7. Support dark mode by using Tailwind dark: modifier or CSS variables
+
+## File Structure
+- `src/components/ui/` — shadcn/ui base primitives (DO NOT modify unless extending)
+- `src/components/shared/` — Reusable Aspire components (DataTable, FilterBar, etc.)
+- `src/components/layout/` — Page layout components (AppShell, Sidebar, PageHeader)
+- `src/components/[feature]/` — Feature-specific components (campaigns/, offers/, etc.)
+- `src/stories/` — Storybook stories (mirror component structure)
+- `src/lib/` — Utilities, formatters, constants
+- `src/hooks/` — Custom React hooks
+
+## Common Patterns
+- Tables: DataTable + FilterBar + TableActionBar + Pagination
+- Forms: Use shadcn Form with zod validation
+- Modals: Dialog for forms, Sheet for detail panels, AlertDialog for confirmations
+- Multi-step: CreationWizard with WizardStep array
+- Empty states: EmptyState component with icon, title, description, action
+- Status: StatusDot for inline status (NOT Badge)
+- Tags: TagPillGroup with variant colors (teal, purple, amber, blue, rose, lime, orange, sky)
+
+## Design Tokens
+- Primary: hsl(var(--primary)) — lime green
+- Radius: rounded-sm (6px), rounded-md (8px), rounded-lg (10px)
+- Font: Inter (sans), Geist Mono (mono)
+- Spacing: 4/8/12/16/20/24px scale
+
+## Storybook
+Run: `npm run storybook` (port 6006)
+Every component has a Documentation page with props, code examples, and usage guidelines.
+Browse the Component Index at "1. Getting Started / Component Index" for a complete reference.

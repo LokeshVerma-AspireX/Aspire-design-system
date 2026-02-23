@@ -6,9 +6,7 @@ import { Dialog as SheetPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
-function Sheet({
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Root>) {
+function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />
 }
 
@@ -53,7 +51,7 @@ function SheetContent({
   showCloseButton = true,
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Content> & {
-  side?: "right" | "left" | "top" | "bottom"
+  side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
 }) {
   return (

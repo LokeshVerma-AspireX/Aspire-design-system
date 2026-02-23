@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import * as React from "react"
 
 const meta = {
-  title: "Foundations/Design Tokens",
+  title: "2. Foundations/Design Tokens",
   tags: ["autodocs"],
   parameters: {
     layout: "padded",

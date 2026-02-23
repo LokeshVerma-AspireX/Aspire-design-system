@@ -11,10 +11,15 @@ const config = {
     "@chromatic-com/storybook",
     "@storybook/addon-a11y",
     "@storybook/addon-themes",
+    "@storybook/addon-storysource",
   ],
   framework: {
     name: "@storybook/nextjs-vite",
     options: {},
+  },
+  docs: {
+    autodocs: "tag",
+    defaultName: "Documentation",
   },
   staticDirs: ["../public"],
   viteFinal: async (config) => {

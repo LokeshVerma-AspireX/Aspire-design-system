@@ -3,6 +3,39 @@ import { InboxTab } from "@/components/contact-detail/InboxTab"
 import type { ThreadPreview } from "@/components/contact-detail/ThreadList"
 import type { ThreadMessage } from "@/components/contact-detail/ThreadDetail"
 
+/**
+ * # InboxTab
+ *
+ * Split-pane messaging inbox embedded within the contact detail page. Left pane shows a
+ * searchable thread list with unread badges; right pane shows the full message history
+ * and reply input for the selected thread.
+ *
+ * ## Components Used
+ * - `ThreadList` -- scrollable thread list with search input and unread dot indicators
+ * - `ThreadDetail` -- thread header (subject, message count, assignees) + message list + reply composer
+ *
+ * ## Data Requirements
+ * - `threads` (ThreadPreview[]) -- array of thread previews with id, author, initials,
+ *   subject, preview text, timestamp, and optional unreadCount
+ * - `messages` (ThreadMessage[]) -- array of messages with id, author, initials,
+ *   timestamp, body text, and optional isOwn flag
+ * - `activeThreadId` (string) -- id of the currently selected thread
+ * - `subject` (string) -- subject line for the thread detail header
+ * - `messageCount` (number) -- total messages in the active thread
+ * - `assignedTo` (string[]) -- names of team members assigned to the thread
+ *
+ * ## Customization
+ * - Thread list is searchable and filterable client-side
+ * - Active thread selection is controlled or defaults to first thread
+ * - Assignee chips in the header are driven by the `assignedTo` array
+ * - Reply composer supports `onSendReply` callback
+ * - Height is constrained by the parent container
+ *
+ * ```tsx
+ * import { InboxTab } from "@/components/contact-detail/InboxTab"
+ * ```
+ */
+
 const THREADS: ThreadPreview[] = [
   {
     id: "t1",
@@ -86,16 +119,36 @@ const MESSAGES: ThreadMessage[] = [
 ]
 
 const meta = {
-  title: "Contact Detail/InboxTab",
+  title: "6. Pages/Contacts/InboxTab",
   component: InboxTab,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        component:
-          "Split-pane messaging inbox. Left: thread list with search and unread badges. Right: thread detail with full message history and reply input.",
-      },
+  },
+  argTypes: {
+    threads: {
+      control: "object",
+      description: "Array of thread preview objects for the left-pane list.",
+    },
+    activeThreadId: {
+      control: "text",
+      description: "ID of the currently selected/active thread.",
+    },
+    subject: {
+      control: "text",
+      description: "Subject line displayed in the thread detail header.",
+    },
+    messageCount: {
+      control: "number",
+      description: "Total number of messages in the active thread.",
+    },
+    assignedTo: {
+      control: "object",
+      description: "Array of assignee names shown as chips in the thread header.",
+    },
+    messages: {
+      control: "object",
+      description: "Array of message objects for the active thread.",
     },
   },
   args: {
@@ -129,7 +182,7 @@ export const ActiveConversation: Story = {
 export const NoSelection: Story = {
   args: { activeThreadId: undefined },
   parameters: {
-    docs: { description: { story: "No thread selected — shows placeholder." } },
+    docs: { description: { story: "No thread selected -- shows placeholder." } },
   },
 }
 

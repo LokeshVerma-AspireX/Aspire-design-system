@@ -1,42 +1,82 @@
 "use client"
 
 import * as React from "react"
-import { cn } from "@/lib/utils"
-import { StepperSidebar, type StepDef } from "@/components/shared/StepperSidebar"
-import { OfferDetailsStep, type OfferDetailsStepData } from "./OfferDetailsStep"
-import { ConfigureDiscountStep, type ConfigureDiscountStepData } from "./ConfigureDiscountStep"
-import { CreatorEarningsStep } from "./CreatorEarningsStep"
-import { AdvanceConfigStep } from "./AdvanceConfigStep"
-import { ReviewCreateStep } from "./ReviewCreateStep"
+import {
+  Tag,
+  Shield,
+  Globe,
+  Settings2,
+  ClipboardCheck,
+  Percent,
+} from "lucide-react"
+import { CreationWizard, type WizardStep } from "@/components/shared/wizard"
+import { OfferBasicsWizardStep } from "./steps/OfferBasicsWizardStep"
+import { ConfigureDiscountWizardStep } from "./steps/ConfigureDiscountWizardStep"
+import { CreatorEarningsWizardStep } from "./steps/CreatorEarningsWizardStep"
+import { AdvanceConfigWizardStep } from "./steps/AdvanceConfigWizardStep"
+import { OfferReviewWizardStep } from "./steps/OfferReviewWizardStep"
 
-const STEPS: StepDef[] = [
-  { id: "offer-basics",         label: "Offer Basics" },
-  { id: "configure-discount",   label: "Configure Discount" },
-  { id: "creator-earnings",     label: "Creator Earnings" },
-  { id: "advance-config",       label: "Advance Config" },
-  { id: "review-create",        label: "Review & Create" },
+// ─── Steps definition ────────────────────────────────────────────────────────
+
+const OFFER_STEPS: WizardStep[] = [
+  {
+    id: "offer-basics",
+    label: "Offer Basics",
+    icon: Tag,
+    component: OfferBasicsWizardStep,
+    validation: (data) => {
+      if (!data.offerName?.trim()) return "Offer name is required"
+      return true
+    },
+  },
+  {
+    id: "configure-discount",
+    label: "Configure Discount",
+    icon: Percent,
+    component: ConfigureDiscountWizardStep,
+  },
+  {
+    id: "creator-earnings",
+    label: "Creator Earnings",
+    component: CreatorEarningsWizardStep,
+  },
+  {
+    id: "advance-config",
+    label: "Advance Config",
+    icon: Settings2,
+    optional: true,
+    component: AdvanceConfigWizardStep,
+  },
+  {
+    id: "review-create",
+    label: "Review & Create",
+    icon: ClipboardCheck,
+    component: OfferReviewWizardStep,
+  },
 ]
 
-interface CreateOfferWizardProps {
-  initialStep?: number
-  onClose?: () => void
-  onSubmit?: () => void
-  className?: string
-}
+// ─── Default data ────────────────────────────────────────────────────────────
 
-const DEFAULT_OFFER_DETAILS: OfferDetailsStepData = {
+const DEFAULT_OFFER_DATA: Record<string, any> = {
   offerName: "",
   offerDescription: "",
-  dateRange: {},
+  dateRangeFrom: "",
+  dateRangeTo: "",
   generatePromoCodes: false,
-}
-
-const DEFAULT_DISCOUNT_CONFIG: ConfigureDiscountStepData = {
   offerType: "",
   discountMode: "percent",
   discountValue: "",
   enableSecureCodes: true,
   enableLandingPage: false,
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
+
+interface CreateOfferWizardProps {
+  initialStep?: number
+  onClose?: () => void
+  onSubmit?: (data?: Record<string, any>) => void
+  className?: string
 }
 
 function CreateOfferWizard({
@@ -45,74 +85,18 @@ function CreateOfferWizard({
   onSubmit,
   className,
 }: CreateOfferWizardProps) {
-  const [activeStep, setActiveStep] = React.useState(initialStep)
-  const [offerDetails, setOfferDetails] = React.useState<OfferDetailsStepData>(DEFAULT_OFFER_DETAILS)
-  const [discountConfig, setDiscountConfig] = React.useState<ConfigureDiscountStepData>(DEFAULT_DISCOUNT_CONFIG)
-
-  function goNext() {
-    setActiveStep((prev) => Math.min(prev + 1, STEPS.length - 1))
-  }
-
-  function goPrevious() {
-    setActiveStep((prev) => Math.max(prev - 1, 0))
-  }
-
-  const commonProps = { onClose, onPrevious: goPrevious, onNext: goNext }
-
-  function renderStep() {
-    switch (activeStep) {
-      case 0:
-        return (
-          <OfferDetailsStep
-            data={offerDetails}
-            onChange={(patch) => setOfferDetails((prev) => ({ ...prev, ...patch }))}
-            onClose={onClose}
-            onNext={goNext}
-          />
-        )
-      case 1:
-        return (
-          <ConfigureDiscountStep
-            data={discountConfig}
-            onChange={(patch) => setDiscountConfig((prev) => ({ ...prev, ...patch }))}
-            {...commonProps}
-          />
-        )
-      case 2:
-        return <CreatorEarningsStep {...commonProps} />
-      case 3:
-        return <AdvanceConfigStep {...commonProps} />
-      case 4:
-        return (
-          <ReviewCreateStep
-            offerDetails={offerDetails}
-            discountConfig={discountConfig}
-            onClose={onClose}
-            onPrevious={goPrevious}
-            onSubmit={onSubmit}
-          />
-        )
-      default:
-        return null
-    }
-  }
-
   return (
-    <div className={cn("flex h-full flex-col overflow-hidden bg-background", className)}>
-      {/* Wizard title bar */}
-      <div className="flex items-center border-b border-border px-6 py-4">
-        <h1 className="text-lg font-semibold text-foreground">Creating New Offer</h1>
-      </div>
-
-      {/* Body: stepper + active step */}
-      <div className="flex flex-1 overflow-hidden">
-        <StepperSidebar steps={STEPS} activeStep={activeStep} />
-        <div className="flex flex-1 flex-col overflow-hidden">
-          {renderStep()}
-        </div>
-      </div>
-    </div>
+    <CreationWizard
+      title="Creating New Offer"
+      steps={OFFER_STEPS}
+      initialStep={initialStep}
+      initialData={DEFAULT_OFFER_DATA}
+      onComplete={(data) => onSubmit?.(data)}
+      onCancel={() => onClose?.()}
+      completeLabel="Create Offer"
+      className={className}
+    />
   )
 }
 
-export { CreateOfferWizard, type CreateOfferWizardProps, STEPS }
+export { CreateOfferWizard, type CreateOfferWizardProps, OFFER_STEPS as STEPS }

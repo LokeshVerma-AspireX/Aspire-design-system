@@ -252,28 +252,58 @@ function DashboardLayout() {
 
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
+/**
+ * # Dashboard
+ *
+ * Full dashboard composition demonstrating a realistic product page with metrics,
+ * tabbed content, and interactive elements.
+ *
+ * ## Components Used
+ * - `Card`, `CardContent`, `CardHeader`, `CardTitle` — metric cards and content panels
+ * - `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent` — overview/projects/activity switching
+ * - `Badge` — project health count indicators
+ * - `Avatar`, `AvatarFallback` — user avatars in header and activity feed
+ * - `Progress` — project completion bars
+ * - `Button` — actions, notifications, and overflow menus
+ * - `DropdownMenu`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuSeparator`, `DropdownMenuTrigger` — user menu
+ * - `Separator` — visual dividers
+ * - Lucide icons: `TrendingUp`, `TrendingDown`, `Users`, `Activity`, `DollarSign`, `MoreHorizontal`, `Bell`, `Settings`, `LogOut`
+ *
+ * ## Data Requirements
+ * - `METRICS` — array of `{ label, value, change, trend, icon }` for KPI cards
+ * - `PROJECTS` — array of `{ name, progress, status, statusColor }` for project list
+ * - `ACTIVITY` — array of `{ user, action, time, initials }` for activity feed
+ *
+ * ## Customization
+ * - Metrics grid is responsive via CSS grid columns
+ * - Tab content panels can be swapped with any custom content
+ * - Header can include notification badges, search, or additional actions
+ * - Project health summary colors map to status severity
+ * - Activity feed supports avatar images via `AvatarImage`
+ *
+ * ```tsx
+ * // This is an inline composition — not a standalone importable component.
+ * // See source for the DashboardLayout implementation pattern.
+ * ```
+ */
 const meta = {
-  title: "Compositions/Dashboard",
+  title: "7. Patterns/Dashboard",
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "Full dashboard composition using Card, Tabs, Badge, Avatar, Progress, DropdownMenu, and Button. Demonstrates a realistic product page.",
-      },
-    },
   },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Default view with Overview tab active showing metrics, project health, and recent activity. */
 export const Default: Story = {
   name: "Dashboard — Overview",
   render: () => <DashboardLayout />,
 };
 
+/** Projects tab showing progress bars and status indicators. Uses play function to navigate. */
 export const ProjectsTab: Story = {
   name: "Dashboard — Projects Tab (Play)",
   render: () => <DashboardLayout />,
@@ -293,6 +323,7 @@ export const ProjectsTab: Story = {
   },
 };
 
+/** Activity tab showing the full activity feed. Uses play function to navigate. */
 export const ActivityTab: Story = {
   name: "Dashboard — Activity Tab (Play)",
   render: () => <DashboardLayout />,

@@ -3,8 +3,7 @@
 import * as React from "react"
 import { Instagram, Youtube } from "lucide-react"
 import { cn } from "@/lib/utils"
-
-type Platform = "instagram" | "tiktok" | "youtube"
+import { type Platform, PLATFORM_COLOR, PLATFORM_TEXT_COLOR } from "@/lib/constants/platforms"
 
 function TikTokSvg({ className }: { className?: string }) {
   return (
@@ -28,18 +27,6 @@ function PlatformIcon({ platform, className }: PlatformIconProps) {
   if (platform === "instagram") return <Instagram className={className} />
   if (platform === "youtube")   return <Youtube   className={className} />
   return <TikTokSvg className={className} />
-}
-
-const PLATFORM_COLOR: Record<Platform, string> = {
-  instagram: "bg-fuchsia-500 text-white",
-  tiktok:    "bg-cyan-500 text-white",
-  youtube:   "bg-red-500 text-white",
-}
-
-const PLATFORM_TEXT_COLOR: Record<Platform, string> = {
-  instagram: "text-fuchsia-500",
-  tiktok:    "text-cyan-500",
-  youtube:   "text-red-500",
 }
 
 export {

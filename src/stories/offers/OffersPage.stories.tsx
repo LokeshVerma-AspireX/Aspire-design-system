@@ -1,7 +1,44 @@
 import type { Meta, StoryObj } from "@storybook/react"
 import * as React from "react"
 import { OffersPage, type Offer } from "@/components/offers/OffersPage"
-import { PageShell } from "@/components/layout/PageShell"
+import { AppShell } from "@/components/layout/AppShell"
+
+/**
+ * # OffersPage
+ *
+ * Full-page offers listing with tab navigation, filter bar, data table with checkbox selection
+ * and status dots, toolbar with primary CTA and search, and pagination footer.
+ *
+ * ## Components Used
+ * - `AppShell` -- application layout shell with sidebar
+ * - `PageHeader` -- page title with action buttons
+ * - `Tabs` / `TabsList` / `TabsTrigger` -- Offers / Analytics tab navigation
+ * - `FilterBar` -- saved views and quick-filter dropdowns
+ * - `DataTable` -- sortable, selectable table with status dots and row actions
+ * - `StatusDot` -- coloured status indicator (active, paused, draft, expired)
+ * - `Pagination` -- page navigation footer
+ * - `Input` -- search input in the toolbar
+ * - `Button` -- "Create Offer" and "Send Payment" CTAs
+ *
+ * ## Data Requirements
+ * - `offers` (Offer[]) -- array of offer objects with id, name, optional imageUrl,
+ *   connectedTo (campaign name), landingPage URL, memberCount, and status
+ * - `activeTab` (string) -- currently selected tab ("offers" or "analytics")
+ * - `currentPage`, `totalPages`, `totalItems`, `pageSize` -- pagination state
+ * - `selectedIds` (Set<string>, optional) -- set of selected offer IDs
+ * - `sortKey` / `sortDirection` (optional) -- current table sort state
+ *
+ * ## Customization
+ * - Tab set is configurable (Offers, Analytics, or custom)
+ * - Table columns and row actions are defined internally but sort and selection are controllable
+ * - Pagination page size and total items drive the footer
+ * - "Create Offer" and "Send Payment" callbacks are configurable
+ * - Search and column settings callbacks are provided
+ *
+ * ```tsx
+ * import { OffersPage } from "@/components/offers/OffersPage"
+ * ```
+ */
 
 // ─── Sample data ─────────────────────────────────────────────────────────────
 
@@ -90,16 +127,48 @@ const DEFAULT_PROPS = {
 // ─── Meta ────────────────────────────────────────────────────────────────────
 
 const meta = {
-  title: "Offers/OffersPage",
+  title: "6. Pages/Offers/OffersPage",
   component: OffersPage,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        component:
-          "Full-page offers listing with tabs, filters, data table (checkbox selection, soft badges, status dots), toolbar with primary CTA + search, and pagination. Matches the Figma Offers screen.",
-      },
+  },
+  argTypes: {
+    offers: {
+      control: "object",
+      description: "Array of Offer objects populating the data table.",
+    },
+    activeTab: {
+      control: "text",
+      description: "Currently active tab (e.g. 'offers' or 'analytics').",
+    },
+    currentPage: {
+      control: "number",
+      description: "Current page number for pagination.",
+    },
+    totalPages: {
+      control: "number",
+      description: "Total number of pages.",
+    },
+    totalItems: {
+      control: "number",
+      description: "Total number of offer items across all pages.",
+    },
+    pageSize: {
+      control: "number",
+      description: "Number of items displayed per page.",
+    },
+    searchValue: {
+      control: "text",
+      description: "Current value of the search input.",
+    },
+    onCreateOffer: {
+      action: "onCreateOffer",
+      description: "Callback fired when the 'Create Offer' button is clicked.",
+    },
+    onSendPayment: {
+      action: "onSendPayment",
+      description: "Callback fired when the 'Send Payment' button is clicked.",
     },
   },
   args: DEFAULT_PROPS,
@@ -110,12 +179,12 @@ type Story = StoryObj
 
 // ─── Stories ─────────────────────────────────────────────────────────────────
 
-/** Default view inside the PageShell — matches the Figma layout. */
+/** Default view inside the AppShell -- matches the Figma layout. */
 export const Default: Story = {
   render: () => (
-    <PageShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
+    <AppShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
       <OffersPage {...DEFAULT_PROPS} />
-    </PageShell>
+    </AppShell>
   ),
 }
 
@@ -137,7 +206,7 @@ export const WithSelection: Story = {
       new Set(["1", "3", "6"])
     )
     return (
-      <PageShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
+      <AppShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
         <OffersPage
           {...DEFAULT_PROPS}
           selectedIds={selected}
@@ -155,13 +224,13 @@ export const WithSelection: Story = {
             )
           }}
         />
-      </PageShell>
+      </AppShell>
     )
   },
   parameters: {
     docs: {
       description: {
-        story: "Interactive selection — three rows pre-selected. Toggle individual rows or use the header checkbox.",
+        story: "Interactive selection -- three rows pre-selected. Toggle individual rows or use the header checkbox.",
       },
     },
   },
@@ -170,9 +239,9 @@ export const WithSelection: Story = {
 /** Empty state when no offers exist. */
 export const Empty: Story = {
   render: () => (
-    <PageShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
+    <AppShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
       <OffersPage {...DEFAULT_PROPS} offers={[]} totalItems={0} totalPages={1} />
-    </PageShell>
+    </AppShell>
   ),
   parameters: {
     docs: {
@@ -183,11 +252,11 @@ export const Empty: Story = {
   },
 }
 
-/** Pagination on page 3 — matching the Figma's selected page state. */
+/** Pagination on page 3 -- matching the Figma's selected page state. */
 export const Page3: Story = {
   render: () => (
-    <PageShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
+    <AppShell activeHref="/offers" user={{ name: "Lokesh Verma", initials: "LV" }}>
       <OffersPage {...DEFAULT_PROPS} currentPage={3} />
-    </PageShell>
+    </AppShell>
   ),
 }

@@ -4,7 +4,7 @@ import { Shield, Globe, Tag, Zap } from "lucide-react"
 import { FeatureToggleCard } from "@/components/shared/FeatureToggleCard"
 
 const meta = {
-  title: "Offers/Create/FeatureToggleCard",
+  title: "6. Pages/Offers/CreateOffer/FeatureToggleCard",
   component: FeatureToggleCard,
   tags: ["autodocs"],
   parameters: {

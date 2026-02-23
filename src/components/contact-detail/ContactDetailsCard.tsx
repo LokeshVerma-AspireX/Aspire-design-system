@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Mail, Phone, Edit2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { PLATFORM_ICONS, type SocialPlatform } from "@/lib/constants/platforms"
 
 interface TalentManager {
   name: string
@@ -9,7 +10,7 @@ interface TalentManager {
 }
 
 interface SocialAccount {
-  platform: "instagram" | "tiktok" | "youtube" | "pinterest" | "twitter"
+  platform: SocialPlatform
   handle: string
   followers?: number
 }
@@ -22,14 +23,6 @@ interface ContactDetailsCardProps {
   socialAccounts?: SocialAccount[]
   shippingAddress?: string
   className?: string
-}
-
-const platformIcons: Record<string, { label: string; bg: string; text: string }> = {
-  instagram: { label: "IG",  bg: "bg-gradient-to-br from-pink-500 to-purple-600", text: "text-white" },
-  tiktok:    { label: "TT",  bg: "bg-black",   text: "text-white" },
-  youtube:   { label: "YT",  bg: "bg-red-600",  text: "text-white" },
-  pinterest: { label: "PIN", bg: "bg-red-500",  text: "text-white" },
-  twitter:   { label: "X",   bg: "bg-foreground", text: "text-background" },
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -96,7 +89,7 @@ function ContactDetailsCard({
         <div className="flex flex-col gap-3 p-4">
           <SectionLabel>Social Accounts</SectionLabel>
           {socialAccounts.map((acct, i) => {
-            const icon = platformIcons[acct.platform]
+            const icon = PLATFORM_ICONS[acct.platform]
             return (
               <div key={i} className="flex items-center gap-2.5">
                 <span

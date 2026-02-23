@@ -1,4 +1,5 @@
 import type { Preview, Decorator } from "@storybook/react"
+import { TooltipProvider } from "../src/components/ui/tooltip"
 import "../src/app/globals.css"
 
 /**
@@ -19,7 +20,9 @@ const withTheme: Decorator = (Story, context) => {
     return (
       <div className={isDark ? "dark" : ""} style={{ height: "100vh" }}>
         <div className="h-full bg-background text-foreground">
-          <Story />
+          <TooltipProvider>
+            <Story />
+          </TooltipProvider>
         </div>
       </div>
     )
@@ -29,13 +32,17 @@ const withTheme: Decorator = (Story, context) => {
   return (
     <div className={isDark ? "dark" : ""}>
       <div className="bg-background text-foreground">
-        <Story />
+        <TooltipProvider>
+          <Story />
+        </TooltipProvider>
       </div>
     </div>
   )
 }
 
 const preview: Preview = {
+  tags: ['autodocs'],
+
   globalTypes: {
     theme: {
       description: "Global theme for components",
@@ -59,7 +66,17 @@ const preview: Preview = {
     // Disable the built-in backgrounds panel; our decorator handles bg via CSS tokens
     backgrounds: { disable: true },
 
+    docs: {
+      toc: true,
+      source: {
+        type: 'code',
+        language: 'tsx',
+      },
+    },
+
     controls: {
+      expanded: true,
+      sort: 'requiredFirst',
       matchers: {
         color: /(background|color)$/i,
         date:  /Date$/i,
@@ -67,6 +84,22 @@ const preview: Preview = {
     },
 
     a11y: { test: "todo" },
+
+    options: {
+      storySort: {
+        order: [
+          '1. Getting Started',
+          '2. Foundations',
+          '3. Primitives',
+          '4. Components',
+          ['Data Display', 'Forms', 'Feedback', 'Navigation', 'Tables', 'Charts', 'Utilities'],
+          '5. Layout',
+          '6. Pages',
+          ['Contacts', 'Offers', 'Analytics', 'Inbox', 'Settings', 'Dashboard', 'Auth', 'Checkout'],
+          '7. Patterns',
+        ],
+      },
+    },
   },
 
   decorators: [withTheme],

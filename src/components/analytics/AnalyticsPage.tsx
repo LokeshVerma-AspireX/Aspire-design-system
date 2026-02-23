@@ -168,14 +168,10 @@ function AnalyticsPage({
 
       {/* Tabs */}
       <Tabs defaultValue="summary" className="flex flex-1 flex-col overflow-hidden">
-        <div className="border-b border-border px-6">
-          <TabsList variant="line" className="h-11 gap-0 bg-transparent p-0">
+        <div className="px-6 pt-4">
+          <TabsList>
             {["Summary", "Posts", "Members", "Networks"].map((tab) => (
-              <TabsTrigger
-                key={tab}
-                value={tab.toLowerCase()}
-                className="h-11 rounded-none px-4 text-sm"
-              >
+              <TabsTrigger key={tab} value={tab.toLowerCase()}>
                 {tab}
               </TabsTrigger>
             ))}

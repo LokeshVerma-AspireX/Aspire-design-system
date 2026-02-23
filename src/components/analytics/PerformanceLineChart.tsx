@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts"
 import { cn } from "@/lib/utils"
+import { formatK } from "@/lib/formatters"
 
 export interface PerformanceDataPoint {
   date: string
@@ -31,12 +32,6 @@ const METRIC_CONFIG: Record<
   reach:       { label: "Reach",       color: "#0ea5e9", formatter: formatK },
   engagement:  { label: "Engagement",  color: "#ec4899", formatter: formatK },
   tmv:         { label: "TMV ($)",     color: "#f97316", formatter: (v) => `$${formatK(v)}` },
-}
-
-function formatK(n: number): string {
-  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`
-  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}K`
-  return String(n)
 }
 
 interface PerformanceLineChartProps {

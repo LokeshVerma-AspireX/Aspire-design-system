@@ -3,17 +3,57 @@ import * as React from "react"
 import { ThreadDetail } from "@/components/inbox/ThreadDetail"
 import { THREADS, SELECTED_THREAD, SINGLE_MESSAGE_THREAD } from "./sampleData"
 
+/**
+ * # ThreadDetail
+ *
+ * Right-pane thread detail view. Renders a ThreadHeader with subject, message count, and
+ * assignee chips, above a scrollable list of MessageItems, with a ReplyComposer pinned
+ * at the bottom.
+ *
+ * ## Components Used
+ * - `ThreadHeader` -- subject line, message count badge, assignee avatar chips
+ * - `MessageItem` -- individual message row with sender avatar, name, email, timestamp, body paragraphs
+ * - `ReplyComposer` -- text input area and send button pinned at the bottom
+ * - `ScrollArea` -- scrollable container for the message list
+ * - `Separator` -- visual divider between messages
+ * - `Avatar` / `AvatarFallback` -- sender avatars with initials
+ *
+ * ## Data Requirements
+ * - `thread` (Thread) -- full thread object containing:
+ *   - `subject` (string) -- thread subject line
+ *   - `messages` (Message[]) -- array of messages with sender, sentAt, content
+ *   - `assignees` (Assignee[]) -- array of team members assigned to this thread
+ * - Each `Message` has id, sender (Participant with name/email/initials), sentAt (ISO string), content
+ *
+ * ## Customization
+ * - Message list length is dynamic; the scroll area handles overflow
+ * - Assignee chips are rendered from the thread's assignees array
+ * - `onSend` callback fires when the reply composer submit button is clicked
+ * - Height is constrained by the parent container
+ *
+ * ```tsx
+ * import { ThreadDetail } from "@/components/inbox/ThreadDetail"
+ * ```
+ */
 const meta = {
-  title: "Inbox/ThreadDetail",
+  title: "6. Pages/Inbox/ThreadDetail",
   component: ThreadDetail,
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
-    docs: {
-      description: {
-        component:
-          "Right-pane thread detail. Renders ThreadHeader (subject, message count, assignee chips) above a scrollable list of MessageItems, with ReplyComposer pinned at the bottom.",
-      },
+  },
+  argTypes: {
+    thread: {
+      control: "object",
+      description: "Full Thread object containing subject, messages, and assignees.",
+    },
+    onSend: {
+      action: "onSend",
+      description: "Callback fired with the reply text when the send button is clicked.",
+    },
+    className: {
+      control: "text",
+      description: "Additional CSS classes applied to the root container.",
     },
   },
   decorators: [
@@ -36,7 +76,7 @@ export const LongConversation: Story = {
     docs: {
       description: {
         story:
-          "'Collaboration Brief Terms' — 4 messages, 2 assignees. Demonstrates scrollable message list and fully populated header.",
+          "'Collaboration Brief Terms' -- 4 messages, 2 assignees. Demonstrates scrollable message list and fully populated header.",
       },
     },
   },
@@ -62,7 +102,7 @@ export const ThreeMessages: Story = {
   parameters: {
     docs: {
       description: {
-        story: "'Payment & Invoice #1042' — 3 messages, shows the separator between messages clearly.",
+        story: "'Payment & Invoice #1042' -- 3 messages, shows the separator between messages clearly.",
       },
     },
   },
@@ -75,7 +115,7 @@ export const TwoAssignees: Story = {
   parameters: {
     docs: {
       description: {
-        story: "'TikTok Reel Approval' — 2 assignees shown in the header chips.",
+        story: "'TikTok Reel Approval' -- 2 assignees shown in the header chips.",
       },
     },
   },

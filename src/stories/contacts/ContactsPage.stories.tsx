@@ -7,7 +7,7 @@ import { TableActionBar } from "@/components/shared/TableActionBar"
 import { DataTable, type ColumnDef, type ColumnGroup, type SortDirection } from "@/components/shared/DataTable"
 import { StatusDot, type StatusVariant } from "@/components/shared/StatusDot"
 import { Pagination } from "@/components/shared/Pagination"
-import { PageShell } from "@/components/layout/PageShell"
+import { AppShell } from "@/components/layout/AppShell"
 
 // ─── Sample data ──────────────────────────────────────────────────────────────
 
@@ -288,16 +288,56 @@ function ContactsPageFull() {
 
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
+/**
+ * # ContactsPage
+ *
+ * Full CRM contacts page composition with sidebar shell, page header, tab navigation,
+ * filter bar, table action bar, sortable data table, and pagination.
+ *
+ * ## Components Used
+ * - `AppShell` -- application layout shell with sidebar
+ * - `ContactsPageHeader` -- page title and "New Creator" CTA
+ * - `ContactsTabs` -- Creators / Customers / Talent Manager / Analytics tabs
+ * - `FilterBar` -- saved views, quick-filter dropdowns, applied-filter chips
+ * - `TableActionBar` -- bulk actions, search, date range, view toggle, export
+ * - `DataTable` -- sortable, selectable data table with column groups
+ * - `StatusDot` -- coloured status indicator per row
+ * - `Pagination` -- page navigation footer
+ *
+ * ## Data Requirements
+ * - `Creator[]` -- array of creator objects with id, name, email, instagram handle,
+ *   numeric metrics (impressions, engagements, reach, likes, shares, saves), and status
+ * - `ColumnDef<Creator>[]` -- column definitions for the DataTable
+ * - `ColumnGroup[]` -- grouped column headers (Default Member Data, Social Data)
+ * - Filter option arrays for platforms, statuses, and follower tiers
+ *
+ * ## Customization
+ * - Tab set and counts are configurable via `ContactsTabs` props
+ * - Column definitions and column groups can be replaced for different data shapes
+ * - Quick filter options and saved views are fully swappable
+ * - Bulk action buttons in `TableActionBar` are configurable
+ * - Date range options can be changed
+ * - Page size and total items drive the `Pagination` component
+ *
+ * ```tsx
+ * import { ContactsTabs } from "@/components/contacts/ContactsTabs"
+ * ```
+ */
 const meta = {
-  title: "Contacts/ContactsPage",
+  title: "6. Pages/Contacts/ContactsPage",
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        component:
-          "Full Contacts CRM page composition: sidebar shell + page header + tabs + filter bar + table action bar + data table + pagination.",
-      },
+  },
+  argTypes: {
+    activeTab: {
+      control: "select",
+      options: ["creators", "customers", "talent-manager", "analytics"],
+      description: "Currently active tab in the contacts page.",
+    },
+    counts: {
+      control: "object",
+      description: "Badge counts displayed next to each tab label.",
     },
   },
 } satisfies Meta
@@ -307,19 +347,19 @@ type Story = StoryObj
 
 export const WithSidebar: Story = {
   render: () => (
-    <PageShell
+    <AppShell
       activeHref="/contacts"
       user={{ name: "Sarah Chen", initials: "SC" }}
       badgeCounts={{ messages: 5 }}
       defaultCollapsed={true}
     >
       <ContactsPageFull />
-    </PageShell>
+    </AppShell>
   ),
   parameters: {
     docs: {
       description: {
-        story: "Full Aspire app frame — dark sidebar + full contacts page. All interactions work.",
+        story: "Full Aspire app frame -- dark sidebar + full contacts page. All interactions work.",
       },
     },
   },
@@ -334,7 +374,7 @@ export const PageOnly: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Contacts page without the surrounding sidebar — useful for isolating the page layout.",
+        story: "Contacts page without the surrounding sidebar -- useful for isolating the page layout.",
       },
     },
   },

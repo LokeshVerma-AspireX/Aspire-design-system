@@ -236,43 +236,77 @@ function CheckoutLayout({ startStep = 0 }: { startStep?: number }) {
 
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
+/**
+ * # CheckoutFlow
+ *
+ * Multi-step checkout flow demonstrating a real e-commerce purchase experience
+ * with contact info, shipping selection, payment, and order confirmation.
+ *
+ * ## Components Used
+ * - `Input` — contact info, card number, expiry, CVC fields
+ * - `Label` — form field labels
+ * - `Button` — navigation (back/next) and submit actions
+ * - `RadioGroup`, `RadioGroupItem` — shipping method selection
+ * - `Progress` — step progress indicator bar
+ * - `Badge` — SSL encryption indicator
+ * - `Alert`, `AlertDescription` — order confirmation notice
+ * - `Separator` — order summary dividers
+ * - Lucide icons: `CheckCircle2`, `CreditCard`, `Lock`, `Truck`, `Package`, `ChevronRight`
+ *
+ * ## Data Requirements
+ * - `CART_ITEMS` — array of `{ name, desc, price, qty }` for the order summary
+ * - `STEPS` — array of `{ id, label }` defining the checkout progression
+ * - `startStep` (optional) — zero-indexed step to render initially
+ *
+ * ## Customization
+ * - Number of steps is configurable via the `STEPS` array
+ * - Order summary can display any number of line items
+ * - Shipping options are configurable (add more carriers, change pricing)
+ * - Payment fields can be extended with billing address
+ * - Confirmation page can include tracking link, download receipt, etc.
+ * - Tax rate is currently hardcoded at 8% but can be made configurable
+ *
+ * ```tsx
+ * // This is an inline composition — not a standalone importable component.
+ * // See source for the CheckoutLayout implementation pattern.
+ * ```
+ */
 const meta = {
-  title: "Compositions/Checkout Flow",
+  title: "7. Patterns/CheckoutFlow",
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
-    docs: {
-      description: {
-        component:
-          "Multi-step checkout flow combining Input, Label, Button, RadioGroup, Progress, Alert, Badge, and Separator. Shows a real e-commerce purchase experience.",
-      },
-    },
   },
 } satisfies Meta;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+/** Step 1: Contact information form with order summary. */
 export const Step1ContactInfo: Story = {
   name: "Step 1 — Contact Info",
   render: () => <CheckoutLayout startStep={0} />,
 };
 
+/** Step 2: Shipping method selection with standard and express options. */
 export const Step2Shipping: Story = {
   name: "Step 2 — Shipping",
   render: () => <CheckoutLayout startStep={1} />,
 };
 
+/** Step 3: Payment details form with card number, expiry, and CVC. */
 export const Step3Payment: Story = {
   name: "Step 3 — Payment",
   render: () => <CheckoutLayout startStep={2} />,
 };
 
+/** Step 4: Order confirmation with success message and order number. */
 export const Step4Confirmation: Story = {
   name: "Step 4 — Confirmation",
   render: () => <CheckoutLayout startStep={3} />,
 };
 
+/** Full interactive flow using play function to fill forms and advance through all steps. */
 export const FullFlow: Story = {
   name: "Full Flow — Interactive (Play)",
   render: () => <CheckoutLayout startStep={0} />,

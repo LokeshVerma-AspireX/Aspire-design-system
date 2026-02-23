@@ -3,17 +3,50 @@ import * as React from "react"
 import { MessageItem } from "@/components/inbox/MessageItem"
 import { SELECTED_THREAD, THREADS } from "./sampleData"
 
+/**
+ * # MessageItem
+ *
+ * Single email message row within a thread. Shows avatar, sender name and email address,
+ * formatted timestamp, a separator, and the full message body rendered as paragraphs
+ * (split on double-newline).
+ *
+ * ## Components Used
+ * - `Avatar` / `AvatarFallback` / `AvatarImage` -- sender avatar with initials fallback
+ * - `Separator` -- visual divider (when used in a thread list context)
+ *
+ * ## Data Requirements
+ * - `message` (Message) -- single message object containing:
+ *   - `id` (string) -- unique message identifier
+ *   - `sender` (Participant) -- object with name, email, initials, and optional avatarUrl
+ *   - `sentAt` (string) -- ISO date string formatted for display
+ *   - `content` (string) -- message body text, split on double-newline for paragraphs
+ *
+ * ## Customization
+ * - Message body supports multi-paragraph text via double-newline splitting
+ * - Avatar falls back to initials when no avatarUrl is provided
+ * - Timestamp formatting is handled internally using toLocaleString
+ * - Spacing and layout are controlled via className prop
+ * - When stacked in a thread, Separator components are placed between items
+ *
+ * ```tsx
+ * import { MessageItem } from "@/components/inbox/MessageItem"
+ * ```
+ */
 const meta = {
-  title: "Inbox/MessageItem",
+  title: "6. Pages/Inbox/MessageItem",
   component: MessageItem,
   tags: ["autodocs"],
   parameters: {
     layout: "padded",
-    docs: {
-      description: {
-        component:
-          "Single email message row. Shows avatar, sender name + email address, formatted timestamp, a separator, and the full message body rendered as paragraphs (split on double-newline).",
-      },
+  },
+  argTypes: {
+    message: {
+      control: "object",
+      description: "Message object with sender, sentAt, and content fields.",
+    },
+    className: {
+      control: "text",
+      description: "Additional CSS classes applied to the message row container.",
     },
   },
   decorators: [
@@ -26,7 +59,7 @@ const meta = {
 } satisfies Meta<typeof MessageItem>
 
 export default meta
-// MessageItem has required props (message) and stories use render() — use bare StoryObj
+// MessageItem has required props (message) and stories use render() -- use bare StoryObj
 type Story = StoryObj
 
 // First message from the 4-message thread (sent by team)
@@ -35,7 +68,7 @@ export const TeamMessage: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Outbound message from the Aspire team (Jason Roh) — long multi-paragraph collaboration brief.",
+        story: "Outbound message from the Aspire team (Jason Roh) -- long multi-paragraph collaboration brief.",
       },
     },
   },
@@ -47,7 +80,7 @@ export const CreatorReply: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Inbound reply from creator Jane Doe — bulleted questions about exclusivity, revisions, and deadline.",
+        story: "Inbound reply from creator Jane Doe -- bulleted questions about exclusivity, revisions, and deadline.",
       },
     },
   },
@@ -61,7 +94,7 @@ export const LatestMessage: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Most recent message — Jane asking about the payment split schedule.",
+        story: "Most recent message -- Jane asking about the payment split schedule.",
       },
     },
   },
@@ -73,7 +106,7 @@ export const ShortMessage: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Short approval message — Jason approving Lily's TikTok reel with posting instructions.",
+        story: "Short approval message -- Jason approving Lily's TikTok reel with posting instructions.",
       },
     },
   },
@@ -91,7 +124,7 @@ export const TwoMessagesInThread: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Two consecutive messages as rendered in ThreadDetail — separator between them.",
+        story: "Two consecutive messages as rendered in ThreadDetail -- separator between them.",
       },
     },
   },

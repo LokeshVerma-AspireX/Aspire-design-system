@@ -6,7 +6,7 @@ import { OverviewTab } from "@/components/contact-detail/OverviewTab"
 import { ProfileTab } from "@/components/contact-detail/ProfileTab"
 import { ContentTab } from "@/components/contact-detail/ContentTab"
 import { InboxTab } from "@/components/contact-detail/InboxTab"
-import { PageShell } from "@/components/layout/PageShell"
+import { AppShell } from "@/components/layout/AppShell"
 import type { DetailTab } from "@/components/contact-detail/ContactDetailTabs"
 
 // ─── Jane Doe sample data ─────────────────────────────────────────────────────
@@ -291,16 +291,50 @@ function ContactDetailPage() {
 
 // ─── Meta ─────────────────────────────────────────────────────────────────────
 
+/**
+ * # ContactDetailPage
+ *
+ * Full creator profile page with back navigation, avatar header, profile type dropdown,
+ * action menu, and five underline tabs (Overview / Profile / Content / Inbox / Analytics).
+ *
+ * ## Components Used
+ * - `AppShell` -- application layout shell with sidebar
+ * - `ContactDetailHeader` -- back button, avatar, name, profile type selector, actions dropdown
+ * - `ContactDetailTabs` -- 5-tab navigation (Overview, Profile, Content, Inbox, Analytics)
+ * - `OverviewTab` -- contact info cards, social accounts, campaigns, groups, tags, activity feed
+ * - `ProfileTab` -- bio, content highlights, rates table, social stats, audience demographics
+ * - `ContentTab` -- campaign brief groups with horizontally scrolling content cards
+ * - `InboxTab` -- split-pane messaging with thread list and thread detail
+ *
+ * ## Data Requirements
+ * - Contact object with name, initials, email, phone, profile type, and action items
+ * - Overview data: talent managers, social accounts, shipping address, campaigns, groups, tags, activities
+ * - Profile data: bio, location, brand partnerships, rates, social stats, audience age/geo data
+ * - Content data: array of brief groups, each with content cards
+ * - Inbox data: thread previews and messages
+ *
+ * ## Customization
+ * - Active tab is controllable; each tab renders its own sub-component
+ * - Profile type dropdown options are configurable
+ * - Action menu items can be added, removed, or marked destructive
+ * - Each tab's content is independently swappable via the `contentMap` prop
+ * - Activity feed supports campaign and type filters
+ *
+ * ```tsx
+ * import { ContactDetailTabs } from "@/components/contact-detail/ContactDetailTabs"
+ * ```
+ */
 const meta = {
-  title: "Contact Detail/ContactDetailPage",
+  title: "6. Pages/Contacts/ContactDetailPage",
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
-    docs: {
-      description: {
-        component:
-          "Full creator profile page — back link, avatar header, profile type dropdown, Actions button, 5 underline tabs (Overview / Profile / Content / Inbox / Analytics).",
-      },
+  },
+  argTypes: {
+    activeTab: {
+      control: "select",
+      options: ["overview", "profile", "content", "inbox", "analytics"],
+      description: "The currently visible tab on the contact detail page.",
     },
   },
 } satisfies Meta
@@ -310,14 +344,14 @@ type Story = StoryObj
 
 export const WithSidebar: Story = {
   render: () => (
-    <PageShell
+    <AppShell
       activeHref="/contacts"
       user={{ name: "Jason Roh", initials: "JR" }}
       badgeCounts={{ messages: 2 }}
       defaultCollapsed={true}
     >
       <ContactDetailPage />
-    </PageShell>
+    </AppShell>
   ),
   parameters: {
     docs: {
