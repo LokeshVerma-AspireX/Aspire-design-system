@@ -211,6 +211,10 @@ const AspireButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Asp
     if (danger && type !== "link" && type !== "text") variant = "destructive"
     if (ghost && !danger) variant = "outline"
 
+    // ── Danger styling for link and text types ──────────────────────────────
+    // When danger is true for "link" or "text", apply destructive text color
+    const dangerClass = danger && (type === "link" || type === "text") ? "text-destructive" : ""
+
     // ── Shape ────────────────────────────────────────────────────────────────
     const shapeClass =
       shape === "circle" ? "rounded-full px-0 aspect-square"
@@ -221,6 +225,7 @@ const AspireButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Asp
       block && "w-full",
       type === "dashed" && "border-dashed",
       ghost && "bg-transparent border",
+      dangerClass,
       shapeClass
     )
 
@@ -260,7 +265,7 @@ const AspireButton = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Asp
           asChild
           {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
         >
-          <a href={href} target={target} rel={rel}>{content}</a>
+          <a href={href} target={target} rel={rel} onClick={onClick}>{content}</a>
         </Button>
       )
     }

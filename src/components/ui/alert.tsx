@@ -123,7 +123,7 @@ export interface AspireAlertProps {
   closeText?: string
   /** Called immediately when the dismiss control is activated */
   onClose?: () => void
-  /** Called after the close animation completes */
+  /** Called immediately after the alert is hidden (synchronously) */
   afterClose?: () => void
   className?: string
 }
