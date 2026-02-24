@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import * as React from "react"
 import { FileText, Settings, ClipboardCheck, Users, Palette } from "lucide-react"
 import {

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import * as React from "react"
 import { MembersTab } from "@/components/campaigns/MembersTab"
 import type { CampaignCreatorRow } from "@/components/campaigns/MembersTab"

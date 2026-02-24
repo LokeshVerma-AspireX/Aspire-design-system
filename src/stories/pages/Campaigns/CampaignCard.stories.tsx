@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { CampaignCard, type Campaign } from "@/components/campaigns/CampaignCard"
 
 const baseCampaign: Campaign = {

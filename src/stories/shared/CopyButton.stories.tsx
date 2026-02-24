@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { within, userEvent, expect } from "storybook/test"
 import * as React from "react"
 import { CopyButton } from "@/components/shared/CopyButton"

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import * as React from "react"
 import { Shield, Globe, Tag, Zap } from "lucide-react"
 import { FeatureToggleCard } from "@/components/shared/FeatureToggleCard"

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import * as React from "react"
 import { ActivityFeed } from "@/components/contact-detail/ActivityFeed"
 import type { ActivityItemData } from "@/components/contact-detail/ActivityFeed"

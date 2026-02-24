@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import * as React from "react"
 import { SettingsPage, type SettingsSection } from "@/components/settings/SettingsPage"
 import { ProfileSettings } from "@/components/settings/ProfileSettings"

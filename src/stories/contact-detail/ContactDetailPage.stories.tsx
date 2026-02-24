@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import * as React from "react"
 import { ContactDetailHeader } from "@/components/contact-detail/ContactDetailHeader"
 import { ContactDetailTabs } from "@/components/contact-detail/ContactDetailTabs"

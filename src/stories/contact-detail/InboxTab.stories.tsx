@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { InboxTab } from "@/components/contact-detail/InboxTab"
 import type { ThreadPreview } from "@/components/contact-detail/ThreadList"
 import type { ThreadMessage } from "@/components/contact-detail/ThreadDetail"

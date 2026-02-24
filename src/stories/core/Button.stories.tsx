@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { fn } from "storybook/test"
 import { within, userEvent, expect } from "storybook/test"
 import { Button } from "@/components/ui/button"
@@ -50,7 +50,7 @@ import {
  * ```
  */
 const meta: Meta<typeof Button> = {
-  title: "3. Primitives/Button",
+  title: "3. Primitives/Button (Shadcn Primitive)",
   component: Button,
   tags: ["autodocs"],
   parameters: {

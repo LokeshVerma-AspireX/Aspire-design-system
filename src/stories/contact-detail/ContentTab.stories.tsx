@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { ContentTab } from "@/components/contact-detail/ContentTab"
 import type { ContentCardProps } from "@/components/contact-detail/ContentCard"
 

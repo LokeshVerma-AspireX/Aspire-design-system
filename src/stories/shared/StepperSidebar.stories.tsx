@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { within, expect } from "storybook/test"
 import * as React from "react"
 import { StepperSidebar, type StepDef } from "@/components/shared/StepperSidebar"

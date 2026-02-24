@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { type CSSProperties } from "react"
 import { fn } from "storybook/test"
 import { within, userEvent, expect } from "storybook/test"
