@@ -9,4 +9,6 @@ function AspectRatio({
   return <AspectRatioPrimitive.Root data-slot="aspect-ratio" {...props} />
 }
 
+AspectRatio.displayName = "AspectRatio"
+
 export { AspectRatio }

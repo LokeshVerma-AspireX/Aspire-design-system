@@ -1,20 +1,33 @@
 import type { Preview, Decorator } from "@storybook/react"
+import React from "react"
 import { TooltipProvider } from "../src/components/ui/tooltip"
+import { THEMES, THEME_MAP, type ThemeDefinition } from "../src/themes/registry"
 import "../src/app/globals.css"
 
-/**
- * Apply the dark-mode class so Tailwind's
- *   @custom-variant dark (&:is(.dark *))
- * responds to the toolbar theme toggle.
- *
- * Fullscreen stories (InboxPage, AnalyticsPage, etc.) get h-screen and no
- * extra padding so page-level layouts fill the viewport correctly.
- * For padded/centered layouts Storybook itself controls the canvas padding.
- */
+// ---------------------------------------------------------------------------
+// Decorator: inject the selected theme + mode CSS variables into :root
+// ---------------------------------------------------------------------------
 const withTheme: Decorator = (Story, context) => {
-  const theme  = (context.globals.theme as string) ?? "light"
-  const isDark = theme === "dark"
+  const themeName = (context.globals?.theme as string) ?? "aspire"
+  const mode = (context.globals?.mode as string) ?? "light"
   const layout = (context.parameters.layout as string) ?? "padded"
+  const isDark = mode === "dark"
+
+  React.useEffect(() => {
+    const def: ThemeDefinition | undefined = THEME_MAP[themeName]
+    if (!def) return
+
+    const tokens = isDark ? def.tokens.dark : def.tokens.light
+    const root = document.documentElement
+
+    // Apply all CSS variables from the theme
+    Object.entries(tokens).forEach(([key, value]) => {
+      root.style.setProperty(key, value)
+    })
+
+    // Toggle dark class
+    root.classList.toggle("dark", isDark)
+  }, [themeName, isDark])
 
   if (layout === "fullscreen") {
     return (
@@ -28,7 +41,6 @@ const withTheme: Decorator = (Story, context) => {
     )
   }
 
-  // padded / centered — no extra padding added here; Storybook handles canvas padding
   return (
     <div className={isDark ? "dark" : ""}>
       <div className="bg-background text-foreground">
@@ -40,46 +52,55 @@ const withTheme: Decorator = (Story, context) => {
   )
 }
 
+// ---------------------------------------------------------------------------
+// Preview config
+// ---------------------------------------------------------------------------
 const preview: Preview = {
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 
   globalTypes: {
     theme: {
-      description: "Global theme for components",
+      name: "Theme",
+      description: "Global color theme",
+      defaultValue: "aspire",
       toolbar: {
-        title: "Theme",
-        icon: "circlehollow",
+        icon: "paintbrush",
+        items: THEMES.map((t) => ({ value: t.name, title: t.label })),
+        dynamicTitle: true,
+      },
+    },
+    mode: {
+      name: "Mode",
+      defaultValue: "light",
+      toolbar: {
+        icon: "sun",
         items: [
-          { value: "light", icon: "sun",  title: "Light" },
-          { value: "dark",  icon: "moon", title: "Dark"  },
+          { value: "light", title: "Light", icon: "sun" },
+          { value: "dark", title: "Dark", icon: "moon" },
         ],
         dynamicTitle: true,
       },
-      defaultValue: "light",
     },
   },
 
   parameters: {
-    // Default layout — individual stories override with "fullscreen" or "centered"
     layout: "padded",
-
-    // Disable the built-in backgrounds panel; our decorator handles bg via CSS tokens
     backgrounds: { disable: true },
 
     docs: {
       toc: true,
       source: {
-        type: 'code',
-        language: 'tsx',
+        type: "code",
+        language: "tsx",
       },
     },
 
     controls: {
       expanded: true,
-      sort: 'requiredFirst',
+      sort: "requiredFirst",
       matchers: {
         color: /(background|color)$/i,
-        date:  /Date$/i,
+        date: /Date$/i,
       },
     },
 
@@ -88,15 +109,32 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          '1. Getting Started',
-          '2. Foundations',
-          '3. Primitives',
-          '4. Components',
-          ['Data Display', 'Forms', 'Feedback', 'Navigation', 'Tables', 'Charts', 'Utilities'],
-          '5. Layout',
-          '6. Pages',
-          ['Contacts', 'Offers', 'Analytics', 'Inbox', 'Settings', 'Dashboard', 'Auth', 'Checkout'],
-          '7. Patterns',
+          "1. Getting Started",
+          "2. Foundations",
+          "3. Primitives",
+          "4. Components",
+          [
+            "Data Display",
+            "Forms",
+            "Feedback",
+            "Navigation",
+            "Tables",
+            "Charts",
+            "Utilities",
+          ],
+          "5. Layout",
+          "6. Pages",
+          [
+            "Contacts",
+            "Offers",
+            "Analytics",
+            "Inbox",
+            "Settings",
+            "Dashboard",
+            "Auth",
+            "Checkout",
+          ],
+          "7. Patterns",
         ],
       },
     },

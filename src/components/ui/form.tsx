@@ -142,6 +142,13 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   )
 }
 
+FormField.displayName = "FormField"
+FormItem.displayName = "FormItem"
+FormLabel.displayName = "FormLabel"
+FormControl.displayName = "FormControl"
+FormDescription.displayName = "FormDescription"
+FormMessage.displayName = "FormMessage"
+
 export {
   useFormField,
   Form,

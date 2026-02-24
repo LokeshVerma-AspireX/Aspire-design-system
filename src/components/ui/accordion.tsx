@@ -63,4 +63,9 @@ function AccordionContent({
   )
 }
 
+Accordion.displayName = "Accordion"
+AccordionItem.displayName = "AccordionItem"
+AccordionTrigger.displayName = "AccordionTrigger"
+AccordionContent.displayName = "AccordionContent"
+
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }

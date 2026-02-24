@@ -88,4 +88,9 @@ function TabsContent({
   )
 }
 
+Tabs.displayName = "Tabs"
+TabsList.displayName = "TabsList"
+TabsTrigger.displayName = "TabsTrigger"
+TabsContent.displayName = "TabsContent"
+
 export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }

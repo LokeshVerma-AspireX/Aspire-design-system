@@ -171,6 +171,16 @@ function CommandShortcut({
   )
 }
 
+Command.displayName = "Command"
+CommandDialog.displayName = "CommandDialog"
+CommandInput.displayName = "CommandInput"
+CommandList.displayName = "CommandList"
+CommandEmpty.displayName = "CommandEmpty"
+CommandGroup.displayName = "CommandGroup"
+CommandSeparator.displayName = "CommandSeparator"
+CommandItem.displayName = "CommandItem"
+CommandShortcut.displayName = "CommandShortcut"
+
 export {
   Command,
   CommandDialog,

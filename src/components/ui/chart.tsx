@@ -352,6 +352,10 @@ function getPayloadConfigFromPayload(
   return configLabelKey in config ? config[configLabelKey] : config[key]
 }
 
+ChartContainer.displayName = "ChartContainer"
+ChartTooltipContent.displayName = "ChartTooltipContent"
+ChartLegendContent.displayName = "ChartLegendContent"
+
 export {
   ChartContainer,
   ChartTooltip,

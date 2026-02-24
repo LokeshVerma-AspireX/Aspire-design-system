@@ -148,6 +148,15 @@ function NavigationMenuIndicator({
   )
 }
 
+NavigationMenu.displayName = "NavigationMenu"
+NavigationMenuList.displayName = "NavigationMenuList"
+NavigationMenuItem.displayName = "NavigationMenuItem"
+NavigationMenuTrigger.displayName = "NavigationMenuTrigger"
+NavigationMenuContent.displayName = "NavigationMenuContent"
+NavigationMenuViewport.displayName = "NavigationMenuViewport"
+NavigationMenuLink.displayName = "NavigationMenuLink"
+NavigationMenuIndicator.displayName = "NavigationMenuIndicator"
+
 export {
   NavigationMenu,
   NavigationMenuList,

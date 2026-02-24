@@ -38,4 +38,8 @@ function HoverCardContent({
   );
 }
 
+HoverCard.displayName = "HoverCard"
+HoverCardTrigger.displayName = "HoverCardTrigger"
+HoverCardContent.displayName = "HoverCardContent"
+
 export { HoverCard, HoverCardTrigger, HoverCardContent }

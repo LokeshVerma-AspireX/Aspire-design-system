@@ -89,7 +89,7 @@ function WelcomePage() {
             <p className="text-sm text-muted-foreground mt-1">Browse all components with live previews</p>
           </a>
           <a
-            href="/?path=/docs/2-foundations-design-tokens--docs"
+            href="/?path=/docs/2-foundations-design-tokens--documentation"
             className="block p-5 rounded-xl border border-stone-200 hover:border-[#16282D]
                        hover:shadow-md transition-all group"
           >

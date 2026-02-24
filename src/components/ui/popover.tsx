@@ -80,6 +80,14 @@ function PopoverDescription({
   );
 }
 
+Popover.displayName = "Popover"
+PopoverTrigger.displayName = "PopoverTrigger"
+PopoverContent.displayName = "PopoverContent"
+PopoverAnchor.displayName = "PopoverAnchor"
+PopoverHeader.displayName = "PopoverHeader"
+PopoverTitle.displayName = "PopoverTitle"
+PopoverDescription.displayName = "PopoverDescription"
+
 export {
   Popover,
   PopoverTrigger,

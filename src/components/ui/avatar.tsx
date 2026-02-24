@@ -99,6 +99,13 @@ function AvatarGroupCount({
   )
 }
 
+Avatar.displayName = "Avatar"
+AvatarImage.displayName = "AvatarImage"
+AvatarFallback.displayName = "AvatarFallback"
+AvatarBadge.displayName = "AvatarBadge"
+AvatarGroup.displayName = "AvatarGroup"
+AvatarGroupCount.displayName = "AvatarGroupCount"
+
 export {
   Avatar,
   AvatarImage,

@@ -216,6 +216,22 @@ function ContextMenuShortcut({ className, ...props }: React.ComponentProps<"span
   )
 }
 
+ContextMenu.displayName = "ContextMenu"
+ContextMenuTrigger.displayName = "ContextMenuTrigger"
+ContextMenuGroup.displayName = "ContextMenuGroup"
+ContextMenuPortal.displayName = "ContextMenuPortal"
+ContextMenuSub.displayName = "ContextMenuSub"
+ContextMenuRadioGroup.displayName = "ContextMenuRadioGroup"
+ContextMenuSubTrigger.displayName = "ContextMenuSubTrigger"
+ContextMenuSubContent.displayName = "ContextMenuSubContent"
+ContextMenuContent.displayName = "ContextMenuContent"
+ContextMenuItem.displayName = "ContextMenuItem"
+ContextMenuCheckboxItem.displayName = "ContextMenuCheckboxItem"
+ContextMenuRadioItem.displayName = "ContextMenuRadioItem"
+ContextMenuLabel.displayName = "ContextMenuLabel"
+ContextMenuSeparator.displayName = "ContextMenuSeparator"
+ContextMenuShortcut.displayName = "ContextMenuShortcut"
+
 export {
   ContextMenu,
   ContextMenuTrigger,

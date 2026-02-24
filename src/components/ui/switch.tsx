@@ -32,4 +32,6 @@ function Switch({
   )
 }
 
+Switch.displayName = "Switch"
+
 export { Switch }

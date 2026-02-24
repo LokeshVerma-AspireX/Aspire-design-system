@@ -55,4 +55,7 @@ function ScrollBar({
   )
 }
 
+ScrollArea.displayName = "ScrollArea"
+ScrollBar.displayName = "ScrollBar"
+
 export { ScrollArea, ScrollBar }

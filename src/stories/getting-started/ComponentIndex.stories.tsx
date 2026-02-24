@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import React from "react"
 
 // Import all shadcn components for live previews
@@ -12,7 +12,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
-import { Slider } from "@/components/ui/slider"
 import { Progress } from "@/components/ui/progress"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -70,7 +69,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Button",
         description: "Trigger actions and navigation with clear visual emphasis.",
-        storyId: "3-primitives-button--docs",
+        storyId: "3-primitives-button--documentation",
         preview: (
           <div className="flex gap-2 flex-wrap">
             <Button size="sm">Primary</Button>
@@ -82,7 +81,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Toggle",
         description: "Switch between two states: on or off.",
-        storyId: "3-primitives-toggle--docs",
+        storyId: "3-primitives-toggle--documentation",
         preview: (
           <div className="flex items-center gap-3">
             <Switch defaultChecked />
@@ -93,7 +92,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Dropdown Menu",
         description: "Display a list of actions in a contextual popup.",
-        storyId: "4-components-navigation-dropdownmenu--docs",
+        storyId: "4-components-navigation-dropdownmenu--documentation",
         preview: (
           <div className="pointer-events-none">
             <div className="rounded-md border border-stone-200 bg-white shadow-sm w-36 py-1">
@@ -108,7 +107,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Tooltip",
         description: "Show contextual information on hover.",
-        storyId: "3-primitives-tooltip--docs",
+        storyId: "3-primitives-tooltip--documentation",
         preview: (
           <div className="flex flex-col items-center gap-1 pointer-events-none">
             <div className="rounded bg-stone-900 text-white text-xs px-2 py-1">Save changes</div>
@@ -120,7 +119,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Command",
         description: "Fast searchable command palette for power users.",
-        storyId: "4-components-navigation-command--docs",
+        storyId: "4-components-navigation-command--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="rounded-md border border-stone-200 bg-white shadow-sm overflow-hidden">
@@ -145,7 +144,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Badge",
         description: "Highlight status, categories, or counts at a glance.",
-        storyId: "3-primitives-badge--docs",
+        storyId: "3-primitives-badge--documentation",
         preview: (
           <div className="flex gap-2 flex-wrap">
             <Badge>Active</Badge>
@@ -158,7 +157,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Alert",
         description: "Communicate important messages and system states.",
-        storyId: "4-components-feedback-alert--docs",
+        storyId: "4-components-feedback-alert--documentation",
         preview: (
           <Alert className="py-2 px-3">
             <AlertCircle className="h-3.5 w-3.5" />
@@ -171,7 +170,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Progress",
         description: "Show completion percentage of a task or process.",
-        storyId: "4-components-data-display-progress--docs",
+        storyId: "4-components-data-display-progress--documentation",
         preview: (
           <div className="w-full space-y-1.5">
             <Progress value={65} className="h-2" />
@@ -182,7 +181,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Skeleton",
         description: "Placeholder while content is loading.",
-        storyId: "4-components-data-display-skeleton--docs",
+        storyId: "4-components-data-display-skeleton--documentation",
         preview: (
           <div className="space-y-2 w-full">
             <Skeleton className="h-3 w-3/4" />
@@ -194,7 +193,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Alert Dialog",
         description: "Confirmation modal for destructive or important actions.",
-        storyId: "4-components-feedback-alertdialog--docs",
+        storyId: "4-components-feedback-alertdialog--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="rounded-lg border border-stone-200 bg-white shadow-lg p-4 space-y-3">
@@ -217,7 +216,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Input",
         description: "Single-line text field for user input.",
-        storyId: "3-primitives-input--docs",
+        storyId: "3-primitives-input--documentation",
         preview: (
           <div className="w-full space-y-2">
             <Input placeholder="Campaign name..." className="h-8 text-sm" />
@@ -228,7 +227,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Select",
         description: "Choose a single option from a dropdown list.",
-        storyId: "3-primitives-select--docs",
+        storyId: "3-primitives-select--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="flex items-center justify-between border border-stone-200 rounded-md px-3 h-8 bg-white text-sm text-stone-400">
@@ -241,7 +240,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Checkbox",
         description: "Let users select one or multiple options.",
-        storyId: "3-primitives-checkbox--docs",
+        storyId: "3-primitives-checkbox--documentation",
         preview: (
           <div className="space-y-2">
             <div className="flex items-center gap-2">
@@ -262,7 +261,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Textarea",
         description: "Multi-line text field for longer input.",
-        storyId: "3-primitives-textarea--docs",
+        storyId: "3-primitives-textarea--documentation",
         preview: (
           <Textarea
             placeholder="Write your campaign brief..."
@@ -271,20 +270,9 @@ const CATEGORIES: Category[] = [
         ),
       },
       {
-        name: "Slider",
-        description: "Select a value from a continuous range.",
-        storyId: "3-primitives-separator--docs",
-        preview: (
-          <div className="w-full space-y-1">
-            <Slider defaultValue={[40]} max={100} className="w-full" />
-            <p className="text-xs text-stone-400">Budget: $40,000</p>
-          </div>
-        ),
-      },
-      {
         name: "Radio Group",
         description: "Select one option from a set of choices.",
-        storyId: "3-primitives-radiogroup--docs",
+        storyId: "3-primitives-radiogroup--documentation",
         preview: (
           <div className="space-y-2">
             {["Flat fee", "Commission", "Product only"].map((label, i) => (
@@ -301,7 +289,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Label",
         description: "Accessible form field labels with required indicators.",
-        storyId: "3-primitives-label--docs",
+        storyId: "3-primitives-label--documentation",
         preview: (
           <div className="w-full space-y-3">
             <div className="space-y-1">
@@ -320,7 +308,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Card",
         description: "Container for grouping related content and actions.",
-        storyId: "3-primitives-card--docs",
+        storyId: "3-primitives-card--documentation",
         preview: (
           <Card className="w-full">
             <CardHeader className="pb-1 pt-3 px-3">
@@ -336,7 +324,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Separator",
         description: "Visually divide sections of content.",
-        storyId: "3-primitives-separator--docs",
+        storyId: "3-primitives-separator--documentation",
         preview: (
           <div className="w-full space-y-2">
             <p className="text-xs text-stone-500">Section A</p>
@@ -348,7 +336,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Scroll Area",
         description: "Scrollable container with custom scrollbar styling.",
-        storyId: "4-components-data-display-scrollarea--docs",
+        storyId: "4-components-data-display-scrollarea--documentation",
         preview: (
           <ScrollArea className="h-20 w-full border border-stone-100 rounded-md p-2">
             {["Emma Wilson", "Sophia Turner", "Marcus Lee", "Aisha Johnson", "Dylan Park", "Priya Sharma"].map(name => (
@@ -360,7 +348,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Tabs",
         description: "Organize content into switchable sections.",
-        storyId: "5-layout-tabs--docs",
+        storyId: "5-layout-tabs--documentation",
         preview: (
           <Tabs defaultValue="members">
             <TabsList className="h-7">
@@ -374,7 +362,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Accordion",
         description: "Expandable sections for progressive disclosure.",
-        storyId: "4-components-data-display-accordion--docs",
+        storyId: "4-components-data-display-accordion--documentation",
         preview: (
           <div className="w-full pointer-events-none">
             <div className="border border-stone-200 rounded-md overflow-hidden">
@@ -396,7 +384,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Dialog",
         description: "Modal overlay for focused tasks and confirmations.",
-        storyId: "4-components-feedback-dialog--docs",
+        storyId: "4-components-feedback-dialog--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="rounded-lg border border-stone-200 bg-white shadow-lg p-4 space-y-2">
@@ -413,7 +401,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Sheet",
         description: "Slide-out panel for detail views and forms.",
-        storyId: "4-components-feedback-sheet--docs",
+        storyId: "4-components-feedback-sheet--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="rounded-l-lg border border-stone-200 bg-white shadow-lg p-3 space-y-2 ml-6">
@@ -437,7 +425,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Table",
         description: "Display structured data in rows and columns.",
-        storyId: "4-components-data-display-table--docs",
+        storyId: "4-components-data-display-table--documentation",
         preview: (
           <div className="pointer-events-none w-full overflow-hidden rounded border border-stone-100">
             <table className="w-full text-xs">
@@ -464,7 +452,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Avatar",
         description: "Display user profile images with fallback initials.",
-        storyId: "3-primitives-avatar--docs",
+        storyId: "3-primitives-avatar--documentation",
         preview: (
           <div className="flex items-center gap-2">
             {[
@@ -483,7 +471,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Calendar",
         description: "Date picker for selecting dates and date ranges.",
-        storyId: "4-components-data-display-calendar--docs",
+        storyId: "4-components-data-display-calendar--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="rounded-md border border-stone-200 bg-white p-2">
@@ -505,7 +493,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Carousel",
         description: "Swipeable content slider for images and cards.",
-        storyId: "4-components-data-display-carousel--docs",
+        storyId: "4-components-data-display-carousel--documentation",
         preview: (
           <div className="w-full pointer-events-none">
             <div className="flex gap-2 items-center">
@@ -519,7 +507,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Hover Card",
         description: "Rich preview popup on hover for linked content.",
-        storyId: "4-components-data-display-hovercard--docs",
+        storyId: "4-components-data-display-hovercard--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="rounded-lg border border-stone-200 bg-white shadow-md p-3 space-y-1.5">
@@ -546,7 +534,7 @@ const CATEGORIES: Category[] = [
       {
         name: "DataTable",
         description: "Advanced sortable, selectable data table.",
-        storyId: "4-components-tables-datatable--docs",
+        storyId: "4-components-tables-datatable--documentation",
         preview: (
           <div className="pointer-events-none w-full overflow-hidden rounded border border-stone-100">
             <table className="w-full text-xs">
@@ -576,7 +564,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Pagination",
         description: "Navigate between pages of data.",
-        storyId: "4-components-tables-pagination--docs",
+        storyId: "4-components-tables-pagination--documentation",
         preview: (
           <div className="pointer-events-none flex items-center gap-1">
             <Button size="sm" variant="outline" className="h-7 w-7 p-0 text-xs">&laquo;</Button>
@@ -590,7 +578,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Filter Bar",
         description: "Filter controls for narrowing table data.",
-        storyId: "4-components-tables-filterbar--docs",
+        storyId: "4-components-tables-filterbar--documentation",
         preview: (
           <div className="pointer-events-none w-full flex gap-2">
             <div className="flex items-center gap-1.5 border border-stone-200 rounded-md px-2 h-7 bg-white text-xs text-stone-500">
@@ -614,7 +602,7 @@ const CATEGORIES: Category[] = [
       {
         name: "App Shell",
         description: "Full page layout with sidebar navigation.",
-        storyId: "5-layout-appshell--docs",
+        storyId: "5-layout-appshell--documentation",
         preview: (
           <div className="pointer-events-none w-full">
             <div className="flex rounded-md border border-stone-200 overflow-hidden h-24">
@@ -636,7 +624,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Page Header",
         description: "Page title with breadcrumbs and action buttons.",
-        storyId: "5-layout-pageheader--docs",
+        storyId: "5-layout-pageheader--documentation",
         preview: (
           <div className="pointer-events-none w-full space-y-1">
             <div className="flex items-center gap-1 text-[10px] text-stone-400">
@@ -652,7 +640,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Breadcrumb",
         description: "Show navigation hierarchy and current location.",
-        storyId: "4-components-navigation-breadcrumb--docs",
+        storyId: "5-layout-breadcrumb--documentation",
         preview: (
           <div className="pointer-events-none flex items-center gap-1.5 text-xs">
             <span className="text-stone-400 hover:text-stone-600">Home</span>
@@ -666,7 +654,7 @@ const CATEGORIES: Category[] = [
       {
         name: "Navigation Menu",
         description: "Top navigation bar with dropdowns.",
-        storyId: "5-layout-navigationmenu--docs",
+        storyId: "5-layout-navigationmenu--documentation",
         preview: (
           <div className="pointer-events-none flex items-center gap-4 text-xs">
             <span className="text-stone-900 font-medium border-b-2 border-stone-900 pb-0.5">Dashboard</span>
@@ -683,16 +671,6 @@ const CATEGORIES: Category[] = [
 // ── Gallery Component ──────────────────────────────────────────
 
 function ComponentGallery() {
-  const navigateToStory = (storyId: string) => {
-    const url = `/?path=/docs/${storyId}`
-    // Story runs inside a Storybook iframe — navigate the parent window
-    try {
-      window.parent.location.href = url
-    } catch {
-      window.location.href = url
-    }
-  }
-
   return (
     <div className="min-h-screen bg-white">
       {/* Page Header */}
@@ -740,13 +718,14 @@ function ComponentGallery() {
             {/* Component grid */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {category.components.map((comp) => (
-                <button
+                <a
                   key={comp.name}
                   data-component-card
                   data-name={comp.name.toLowerCase()}
-                  onClick={() => navigateToStory(comp.storyId)}
+                  href={`/?path=/docs/${comp.storyId}`}
                   className="group text-left bg-white border border-stone-200 rounded-xl overflow-hidden
                              hover:border-stone-400 hover:shadow-md transition-all duration-150
+                             no-underline
                              focus:outline-none focus:ring-2 focus:ring-[#16282D] focus:ring-offset-2"
                 >
                   {/* Preview area */}
@@ -776,7 +755,7 @@ function ComponentGallery() {
                       {comp.description}
                     </p>
                   </div>
-                </button>
+                </a>
               ))}
             </div>
           </section>
@@ -797,7 +776,6 @@ function ComponentGallery() {
 // ── Story Export ────────────────────────────────────────────────
 
 export const Gallery: StoryObj = {
-  name: "Gallery",
   render: () => <ComponentGallery />,
   parameters: {
     layout: "fullscreen",

@@ -224,5 +224,11 @@ function CarouselNext({
   )
 }
 
+Carousel.displayName = "Carousel"
+CarouselContent.displayName = "CarouselContent"
+CarouselItem.displayName = "CarouselItem"
+CarouselPrevious.displayName = "CarouselPrevious"
+CarouselNext.displayName = "CarouselNext"
+
 export { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext }
 export type { CarouselApi }

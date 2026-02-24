@@ -293,10 +293,10 @@ export const CampaignStatuses: Story = {
   name: "Real World — Campaign Statuses",
   render: () => {
     const campaigns = [
-      { name: "Summer Collection 2025", status: "Active", variant: undefined as const, color: "bg-emerald-500 hover:bg-emerald-600", icon: CheckCircle },
-      { name: "Holiday Gift Guide", status: "Paused", variant: "outline" as const, color: undefined, icon: Clock },
-      { name: "Spring Launch", status: "Draft", variant: "secondary" as const, color: undefined, icon: CircleDot },
-      { name: "Winter Promo", status: "Cancelled", variant: "destructive" as const, color: undefined, icon: XCircle },
+      { name: "Summer Collection 2025", status: "Active" as const, variant: undefined as undefined, color: "bg-emerald-500 hover:bg-emerald-600" as const, icon: CheckCircle },
+      { name: "Holiday Gift Guide", status: "Paused" as const, variant: "outline" as const, color: undefined as undefined, icon: Clock },
+      { name: "Spring Launch", status: "Draft" as const, variant: "secondary" as const, color: undefined as undefined, icon: CircleDot },
+      { name: "Winter Promo", status: "Cancelled" as const, variant: "destructive" as const, color: undefined as undefined, icon: XCircle },
     ]
     return (
       <div className="w-96 divide-y rounded-lg border bg-card">

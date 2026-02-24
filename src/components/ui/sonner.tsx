@@ -38,4 +38,6 @@ function Toaster({ ...props }: ToasterProps) {
   )
 }
 
+Toaster.displayName = "Toaster"
+
 export { Toaster }

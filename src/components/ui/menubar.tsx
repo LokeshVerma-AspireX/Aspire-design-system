@@ -245,6 +245,23 @@ function MenubarSubContent({
   )
 }
 
+Menubar.displayName = "Menubar"
+MenubarMenu.displayName = "MenubarMenu"
+MenubarGroup.displayName = "MenubarGroup"
+MenubarPortal.displayName = "MenubarPortal"
+MenubarRadioGroup.displayName = "MenubarRadioGroup"
+MenubarTrigger.displayName = "MenubarTrigger"
+MenubarContent.displayName = "MenubarContent"
+MenubarItem.displayName = "MenubarItem"
+MenubarCheckboxItem.displayName = "MenubarCheckboxItem"
+MenubarRadioItem.displayName = "MenubarRadioItem"
+MenubarLabel.displayName = "MenubarLabel"
+MenubarSeparator.displayName = "MenubarSeparator"
+MenubarShortcut.displayName = "MenubarShortcut"
+MenubarSub.displayName = "MenubarSub"
+MenubarSubTrigger.displayName = "MenubarSubTrigger"
+MenubarSubContent.displayName = "MenubarSubContent"
+
 export {
   Menubar,
   MenubarPortal,

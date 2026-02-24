@@ -238,6 +238,22 @@ function DropdownMenuSubContent({
   )
 }
 
+DropdownMenu.displayName = "DropdownMenu"
+DropdownMenuPortal.displayName = "DropdownMenuPortal"
+DropdownMenuTrigger.displayName = "DropdownMenuTrigger"
+DropdownMenuContent.displayName = "DropdownMenuContent"
+DropdownMenuGroup.displayName = "DropdownMenuGroup"
+DropdownMenuItem.displayName = "DropdownMenuItem"
+DropdownMenuCheckboxItem.displayName = "DropdownMenuCheckboxItem"
+DropdownMenuRadioGroup.displayName = "DropdownMenuRadioGroup"
+DropdownMenuRadioItem.displayName = "DropdownMenuRadioItem"
+DropdownMenuLabel.displayName = "DropdownMenuLabel"
+DropdownMenuSeparator.displayName = "DropdownMenuSeparator"
+DropdownMenuShortcut.displayName = "DropdownMenuShortcut"
+DropdownMenuSub.displayName = "DropdownMenuSub"
+DropdownMenuSubTrigger.displayName = "DropdownMenuSubTrigger"
+DropdownMenuSubContent.displayName = "DropdownMenuSubContent"
+
 export {
   DropdownMenu,
   DropdownMenuPortal,
