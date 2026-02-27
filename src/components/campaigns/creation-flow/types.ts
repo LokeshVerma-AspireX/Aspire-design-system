@@ -82,4 +82,8 @@ export interface CampaignCreationFlowProps {
   initialData?: Partial<CampaignCreationData>
   initialStep?: number
   className?: string
+  /** Shows a loading spinner on the "Create Campaign" button and disables all navigation. Use for the submitting state. */
+  isSubmitting?: boolean
+  /** Pre-opens the unsaved changes dialog — useful for Storybook demos. */
+  defaultShowUnsavedDialog?: boolean
 }

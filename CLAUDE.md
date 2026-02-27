@@ -132,3 +132,8 @@ Tailwind CSS v4, shadcn/ui, and Storybook 10.
 Run: `npm run storybook` (port 6006)
 Every component has a Documentation page with props, code examples, and usage guidelines.
 Browse the Component Index at "1. Getting Started / Component Index" for a complete reference.
+
+## Detailed AI Guide
+See `AI_GUIDE.md` at the project root for the full component inventory, decision guide,
+anti-patterns, design token reference, page structure pattern, and code examples.
+**Always read `AI_GUIDE.md` before writing any new component or page.**

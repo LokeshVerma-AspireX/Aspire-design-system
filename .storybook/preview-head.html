@@ -24,4 +24,272 @@
   body {
     font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   }
+
+  /* ─── Docs page layout: centered content + sticky right TOC ─────────────── */
+
+  /*
+   * Storybook's DocsWrapper uses flex-direction: row-reverse + justify-content: center.
+   * This centers the CONTENT+TOC GROUP, not the content alone — so content
+   * appears left-shifted by ~half the TOC width.
+   *
+   * Fix: override to a 3-column CSS Grid:
+   *   col 1 (1fr) — empty left spacer
+   *   col 2 (min(740px, 100%)) — main content
+   *   col 3 (1fr) — TOC sits here
+   *
+   * Both 1fr columns are always equal, so content is mathematically centered
+   * regardless of viewport width. DOM order [TOC][Content] is irrelevant
+   * because we use explicit grid-column placement.
+   */
+  .sbdocs.sbdocs-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr min(740px, 100%) 1fr !important;
+    column-gap: 2rem !important;
+    align-items: start !important;
+    padding: 3rem 1.5rem 5rem !important;
+    max-width: none !important;
+    /* no flex properties needed */
+    justify-content: unset !important;
+    flex-direction: unset !important;
+  }
+
+  /* Remove the flex ::after spacer — grid handles centering now */
+  .sbdocs.sbdocs-wrapper::after {
+    display: none !important;
+  }
+
+  /* Content: occupies the center column */
+  .sbdocs.sbdocs-content {
+    grid-column: 2 !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+  }
+
+  /* TOC: right column — sticky so it stays in view while scrolling */
+  .sbdocs.sbdocs-toc--custom {
+    grid-column: 3 !important;
+    position: sticky !important;
+    top: 2rem !important;
+    height: fit-content !important;
+    max-height: calc(100vh - 4rem) !important;
+    overflow-y: auto !important;
+    padding-top: 0 !important;
+    padding-left: 0.25rem !important;
+  }
+
+  /* Better heading typography in docs */
+  .sbdocs h1 {
+    font-size: 1.875rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+    line-height: 1.2 !important;
+    margin-top: 0 !important;
+  }
+  .sbdocs h2 {
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+    margin-top: 2rem !important;
+    margin-bottom: 0.75rem !important;
+    color: var(--color-foreground, #1c1917) !important;
+  }
+  .sbdocs h3 {
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    margin-top: 1.75rem !important;
+    margin-bottom: 0.5rem !important;
+    color: var(--color-foreground, #1c1917) !important;
+  }
+  .sbdocs p {
+    font-size: 0.9375rem !important;
+    line-height: 1.7 !important;
+    color: var(--color-muted-foreground, #78716c) !important;
+  }
+
+  /* Horizontal rule — subtle separator */
+  .sbdocs hr {
+    border: none !important;
+    border-top: 1px solid var(--color-border, #e7e5e4) !important;
+    margin: 2.5rem 0 !important;
+  }
+
+  /* ─── Canvas (story preview) ────────────────────────────────────────────── */
+
+  /* Story canvas container */
+  .docs-story {
+    background: #fafaf9 !important;
+    border-radius: 10px !important;
+    border: 1px solid #e7e5e4 !important;
+  }
+
+  /* Story canvas inner padding */
+  .docs-story > div {
+    padding: 2rem !important;
+  }
+
+  /* ─── Props table (argstable) ───────────────────────────────────────────── */
+
+  /* Override the default grey argstable */
+  .docblock-argstable {
+    border: 1px solid #e7e5e4 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    box-shadow: none !important;
+    font-size: 13px !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Table header row */
+  .docblock-argstable-head > tr {
+    background: #f5f5f4 !important;
+  }
+
+  .docblock-argstable-head th {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: #78716c !important;
+    padding: 8px 14px !important;
+    border-bottom: 1px solid #e7e5e4 !important;
+    background: #f5f5f4 !important;
+  }
+
+  /* Table body rows */
+  .docblock-argstable-body tr {
+    border-bottom: 1px solid #f5f5f4 !important;
+  }
+  .docblock-argstable-body tr:nth-child(even) {
+    background: #fafaf9 !important;
+  }
+  .docblock-argstable-body tr:nth-child(odd) {
+    background: #fff !important;
+  }
+  .docblock-argstable-body td {
+    padding: 10px 14px !important;
+    vertical-align: middle !important;
+    font-size: 13px !important;
+  }
+
+  /* Prop name column — mono font */
+  .docblock-argstable-body td:first-child span {
+    font-family: "Geist Mono", "Fira Code", monospace !important;
+    font-size: 12px !important;
+    background: #f0fdf4 !important;
+    color: #166534 !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    border: 1px solid #bbf7d0 !important;
+  }
+
+  /* Default value chip */
+  .docblock-argstable-body .default-value span {
+    font-family: "Geist Mono", "Fira Code", monospace !important;
+    font-size: 11px !important;
+    background: #f5f5f4 !important;
+    color: #78716c !important;
+    border-radius: 4px !important;
+    padding: 1px 5px !important;
+    border: 1px solid #e7e5e4 !important;
+  }
+
+  /* ─── Source code block ─────────────────────────────────────────────────── */
+
+  /* Code block container */
+  .docblock-source {
+    border-radius: 8px !important;
+    border: 1px solid #e7e5e4 !important;
+    overflow: hidden !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Code block header bar */
+  .docblock-source .prism-code,
+  .docblock-source pre {
+    background: #1c1917 !important;
+    font-family: "Geist Mono", "Fira Code", monospace !important;
+    font-size: 13px !important;
+    line-height: 1.65 !important;
+    padding: 1rem 1.25rem !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  /* Show source button */
+  .docblock-source-toolbar button {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+
+  /* ─── Inline code ───────────────────────────────────────────────────────── */
+  .sbdocs code {
+    font-family: "Geist Mono", "Fira Code", monospace !important;
+    font-size: 12px !important;
+    background: #f5f5f4 !important;
+    color: #44403c !important;
+    padding: 1px 6px !important;
+    border-radius: 4px !important;
+    border: 1px solid #e7e5e4 !important;
+  }
+
+  /* Don't double-wrap code inside pre */
+  .sbdocs pre code {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: inherit !important;
+    font-size: inherit !important;
+  }
+
+  /* ─── Controls panel ────────────────────────────────────────────────────── */
+
+  .docblock-argstable-body button[role="button"],
+  .docblock-argstable-body select,
+  .docblock-argstable-body input[type="text"],
+  .docblock-argstable-body input[type="color"] {
+    font-size: 12px !important;
+    border-radius: 6px !important;
+  }
+
+  /* ─── Docs page description text ────────────────────────────────────────── */
+  .sbdocs-description p {
+    font-size: 0.9375rem !important;
+    line-height: 1.7 !important;
+    color: #78716c !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Markdown tables inside description */
+  .sbdocs-description table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    font-size: 13px !important;
+    margin-bottom: 1rem !important;
+    border: 1px solid #e7e5e4 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+  }
+  .sbdocs-description th {
+    background: #f5f5f4 !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    color: #78716c !important;
+    border-bottom: 1px solid #e7e5e4 !important;
+  }
+  .sbdocs-description td {
+    padding: 8px 12px !important;
+    border-bottom: 1px solid #f5f5f4 !important;
+    vertical-align: top !important;
+  }
+  .sbdocs-description tr:nth-child(even) {
+    background: #fafaf9 !important;
+  }
+  .sbdocs-description tr:last-child td {
+    border-bottom: none !important;
+  }
 </style>

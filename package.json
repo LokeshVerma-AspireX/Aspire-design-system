@@ -1,8 +1,28 @@
 {
-  "name": "aspire-design-story",
+  "name": "@aspireiq-design/design-system",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "sideEffects": [
     "*.css",
     "src/app/globals.css"
@@ -16,7 +36,9 @@
     "test:ui": "vitest --ui",
     "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:package": "tsup",
+    "prepublishOnly": "npm run build:package"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -69,5 +91,10 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vitest": "^4.0.18"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "tailwindcss": ">=4.0.0"
   }
 }

@@ -1,0 +1,271 @@
+{/* Button.mdx — living design specification for the Aspire Button component */}
+
+import { Meta, Canvas, Controls, Unstyled } from "@storybook/addon-docs/blocks"
+import * as ButtonStories from "./Button.stories"
+import {
+  ComponentHeader,
+  SpecSection,
+  KeyboardTable,
+  AriaTable,
+  DemoNote,
+  SectionDivider,
+} from "../docs/DocBlocks"
+
+<Meta of={ButtonStories} />
+
+<Unstyled>
+<ComponentHeader
+  category="Components"
+  name="Button"
+  description="Triggers actions and events. The foundational interactive element of the Aspire design system — every call-to-action, form submit, and inline operation flows through this component."
+  status="stable"
+  namedExports={["Button", "buttonVariants"]}
+/>
+</Unstyled>
+
+---
+
+<Unstyled>
+<SpecSection
+  title="Visual Spec"
+  accent="blue"
+  description="All variants, sizes, and compositional states — the complete visual vocabulary of the component."
+/>
+</Unstyled>
+
+### Playground
+
+Adjust props in the Controls panel below to explore every combination.
+
+<Canvas of={ButtonStories.Primary} withToolbar />
+<Controls of={ButtonStories.Primary} />
+
+<SectionDivider />
+
+### Variants
+
+Six visual variants ordered by emphasis. Use **one** `default` button per action group as the primary CTA. Pair it with `outline` or `ghost` for secondary actions.
+
+<Canvas of={ButtonStories.AllVariants} />
+
+<SectionDivider />
+
+### Sizes
+
+`lg` for hero sections. `default` for standard UI. `sm` for toolbars and filter bars. `xs` for inline tags. The `icon-*` sizes create square buttons — always add `aria-label`.
+
+<Canvas of={ButtonStories.AllSizes} />
+
+<SectionDivider />
+
+### Icons
+
+Icons reinforce meaning. Leading icons suit action verbs (`Download`, `Search`). Trailing icons suit direction (`→`, `↓`). shadcn auto-sizes icons via `[&_svg]` — no manual size needed.
+
+<Canvas of={ButtonStories.WithIcons} />
+
+<SectionDivider />
+
+### Destructive Actions
+
+Use `variant="destructive"` only for irreversible operations. Always pair with an **AlertDialog** confirmation step — never a bare click.
+
+<Canvas of={ButtonStories.DestructiveActions} />
+
+---
+
+<Unstyled>
+<SpecSection
+  title="Interaction"
+  accent="violet"
+  description="Keyboard behavior, loading patterns, focus rings, and disabled state — how the button behaves, not just how it looks."
+/>
+</Unstyled>
+
+### Keyboard Navigation
+
+<Unstyled>
+<DemoNote>Click into the canvas below, then use Tab and Enter / Space to navigate.</DemoNote>
+</Unstyled>
+
+Disabled buttons are **removed from the tab order** via `disabled:pointer-events-none`. Tab skips them automatically.
+
+<Canvas of={ButtonStories.KeyboardNavigation} />
+
+<SectionDivider />
+
+### Loading Transition
+
+The component is intentionally unopinionated about loading state. You control it with `disabled` + `Loader2` + a label change. This keeps the loading pattern composable and testable.
+
+<Unstyled>
+<DemoNote>Click either button to watch the loading transition live — it resets after 2 seconds.</DemoNote>
+</Unstyled>
+
+<Canvas of={ButtonStories.LoadingTransition} />
+
+<SectionDivider />
+
+### Focus Ring
+
+Focus rings use `focus-visible` — they appear on keyboard navigation only, never on mouse clicks. This is baked into the shadcn base styles. The `destructive` variant overrides to a red ring.
+
+<Canvas of={ButtonStories.FocusRing} />
+
+<SectionDivider />
+
+### Disabled State
+
+<Canvas of={ButtonStories.DisabledState} />
+
+---
+
+<Unstyled>
+<SpecSection
+  title="Accessibility"
+  accent="emerald"
+  description="ARIA contract and keyboard spec — the minimum required for accessible implementation."
+/>
+</Unstyled>
+
+### ARIA Contract
+
+<Unstyled>
+<AriaTable
+  rows={[
+    {
+      attribute: "role",
+      value: "button (implicit from <button>)",
+      notes: "Do not override unless using asChild with a non-interactive element",
+    },
+    {
+      attribute: "aria-disabled",
+      value: "Set automatically via disabled prop",
+      notes: "Removes button from tab order and prevents click events",
+    },
+    {
+      attribute: "aria-label",
+      value: "Required for icon-only buttons",
+      notes: "Screen readers announce this instead of empty content",
+    },
+    {
+      attribute: "aria-busy",
+      value: "Set manually during loading states",
+      notes: 'e.g. aria-busy="true" while an async operation runs',
+    },
+    {
+      attribute: "aria-pressed",
+      value: "Optional — for toggle buttons",
+      notes: "Use Toggle component instead when possible",
+    },
+  ]}
+/>
+</Unstyled>
+
+### Keyboard Contract
+
+<Unstyled>
+<KeyboardTable
+  rows={[
+    { key: "Tab", behavior: "Moves focus to the button (or away from it)" },
+    { key: "Shift + Tab", behavior: "Moves focus to the previous focusable element" },
+    { key: "Enter", behavior: "Activates the button — fires the onClick handler" },
+    { key: "Space", behavior: "Activates the button — fires the onClick handler" },
+    { key: "Escape", behavior: "No default behavior; context-dependent (e.g. closes a dialog)" },
+  ]}
+/>
+</Unstyled>
+
+### Accessible Patterns
+
+<Canvas of={ButtonStories.AccessiblePatterns} />
+
+---
+
+<Unstyled>
+<SpecSection
+  title="Guidelines"
+  accent="amber"
+  description="When to use which variant, label writing rules, and visual do/don't examples."
+/>
+</Unstyled>
+
+### Do & Don't
+
+<Canvas of={ButtonStories.DoAndDont} />
+
+<SectionDivider />
+
+### Content Guidelines
+
+Button labels should be concise, specific, and start with a verb. They tell the user exactly what happens on click.
+
+<Canvas of={ButtonStories.ContentGuidelines} />
+
+---
+
+<Unstyled>
+<SpecSection
+  title="In Context"
+  accent="stone"
+  description="Real Aspire product patterns — how Button combines with other components in production UI."
+/>
+</Unstyled>
+
+### Dialog Footer
+
+<Canvas of={ButtonStories.InContextDialogFooter} />
+
+<SectionDivider />
+
+### Page Header
+
+<Canvas of={ButtonStories.InContextPageHeader} />
+
+<SectionDivider />
+
+### Form Footer
+
+<Canvas of={ButtonStories.InContextFormSubmit} />
+
+<SectionDivider />
+
+### Table Row Actions
+
+<Canvas of={ButtonStories.InContextTableActions} />
+
+---
+
+<Unstyled>
+<SpecSection
+  title="Tests"
+  accent="rose"
+  description="Automated interaction tests — run these in CI via Chromatic or the Storybook test runner."
+/>
+</Unstyled>
+
+<Unstyled>
+<DemoNote>Each story below has a play() function. Click the story name → Interactions panel to watch assertions run live.</DemoNote>
+</Unstyled>
+
+### Click Handler
+
+Verifies `onClick` fires exactly once on user click.
+
+<Canvas of={ButtonStories.ClickTest} />
+
+<SectionDivider />
+
+### Disabled Blocks Interaction
+
+Verifies a disabled button cannot be activated.
+
+<Canvas of={ButtonStories.DisabledClickTest} />
+
+<SectionDivider />
+
+### Icon-Only Accessible Name
+
+Verifies icon-only buttons have a valid `aria-label` that screen readers can announce.
+
+<Canvas of={ButtonStories.IconA11yTest} />
